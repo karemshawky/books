@@ -24,7 +24,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('get-all-categories', 'CategoryController@getData')->middleware(['auth', 'role:super|admin'])->name('cats.get');
 
     Route::resource('/authors', 'AuthorController')->middleware(['auth', 'role:super|admin']);
-    Route::get('get-all-authors', 'AuthorController@getAuthors')->middleware(['auth', 'role:super|admin'])->name('authors.get');
+    Route::get('get-all-authors', 'AuthorController@getAuthors')->name('authors.get')->middleware(['auth', 'role:super|admin']);
 
     Route::resource('/tags', 'TagController')->middleware(['auth', 'role:super|admin']);
     Route::get('get-all-tags', 'TagController@getTags')->middleware(['auth', 'role:super|admin'])->name('tags.get');

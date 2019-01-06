@@ -104,7 +104,6 @@
 <!--end::Portlet-->
 @endsection
 @push('js')
-<script src="{{ asset('backend/js/select2.js') }}"></script>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
   var editor_config = {

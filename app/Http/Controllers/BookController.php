@@ -45,20 +45,19 @@ class BookController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function getBooks()
-    {                      
-        return datatables(Book::with(['categories:name', 'authors:name', 'tags:name'])->get())->addColumn('action', 'backend.book.action')
-               ->editColumn('categories', function ($book) { 
-                    return $book->categories->implode('name',' - ');
-             })->editColumn('authors', function ($book) { 
-                    return $book->authors->implode('name',' - '); 
-             })->editColumn('description', function ($book) { 
-                    return (empty($book->description))? '-' : strip_tags(html_entity_decode(str_limit($book->description, 50))); 
-             })->editColumn('status', function ($book) { 
-                    return ($book->status == 1) ? 'نشط' : 'غير نشط';
-             })->editColumn('date', function ($book) { 
-                    return $book->created_at->diffForHumans(); 
-             })->toJson(); 
-
+    {
+        return datatables(Book::with(['categories:name', 'authors:name'])->get())->addColumn('action', 'backend.book.action')
+               ->editColumn('categories', function ($book) {
+                   return $book->categories->implode('name', ' - ');
+               })->editColumn('authors', function ($book) {
+                   return $book->authors->implode('name', ' - ');
+               })->editColumn('description', function ($book) {
+                   return (empty($book->description)) ? '-' : strip_tags(html_entity_decode(str_limit($book->description, 50)));
+               })->editColumn('status', function ($book) {
+                   return ($book->status == 1) ? 'نشط' : 'غير نشط';
+               })->editColumn('date', function ($book) {
+                   return $book->created_at->diffForHumans();
+               })->toJson();
     }
 
     /**
@@ -83,20 +82,20 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'       => 'required|string|unique:books',
-            'file'        => 'required',
+            'title' => 'required|string|unique:books',
+            'file' => 'required',
             'description' => 'nullable|string',
-            'pic'         => 'nullable|image|max:4000',
+            'pic' => 'nullable|image|max:4000',
             'category_id' => 'required',
-            'author_id'   => 'required',
+            'author_id' => 'required',
         ]);
 
         $book = Book::create([
-            'title'       => $request->title,
-            'file'        => $request->file,
+            'title' => $request->title,
+            'file' => $request->file,
             'description' => $request->description,
-            'status'      => $request->status,
-            'user_id'     => auth()->id()
+            'status' => $request->status,
+            'user_id' => auth()->id()
         ]);
 
         $book->tags()->attach($request->tag_id);
@@ -104,12 +103,12 @@ class BookController extends Controller
         $book->categories()->attach($request->category_id);
 
         if ($request->hasFile('pic')) {
-            $picName = $this->upload->uploadImage($request,'pic',public_path('uploads/book'));
+            $picName = $this->upload->uploadImage($request, 'pic', public_path('uploads/book'));
             $book->update(['pic' => $picName]);
         }
         return back()->with([
-            'url'     => 'books.index',
-            'type'    => 'success',
+            'url' => 'books.index',
+            'type' => 'success',
             'message' => 'تم تسجيل الكتاب بنجاح '
         ]);
     }
@@ -121,7 +120,7 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Book $book)
-    {        
+    {
         return view('backend.book.read', compact('book'));
     }
 
@@ -133,7 +132,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        $tags =  Tag::all();
+        $tags = Tag::all();
         $authors = Author::all();
         $categories = Category::all();
 
@@ -141,7 +140,7 @@ class BookController extends Controller
         $bookAuthors = $book->authors->pluck('id')->all();
         $bookCategories = $book->categories->pluck('id')->all();
 
-        return view('backend.book.edit', compact('book','tags', 'authors', 'categories','bookTags','bookAuthors','bookCategories'));
+        return view('backend.book.edit', compact('book', 'tags', 'authors', 'categories', 'bookTags', 'bookAuthors', 'bookCategories'));
     }
 
     /**
@@ -154,19 +153,19 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'title'       => 'required|string|unique:books,title,' . $book->id,
-            'file'        => 'required',
+            'title' => 'required|string|unique:books,title,' . $book->id,
+            'file' => 'required',
             'description' => 'nullable|string',
-            'pic'         => 'nullable|image|max:4000',
+            'pic' => 'nullable|image|max:4000',
             'category_id' => 'required',
-            'author_id'   => 'required',
+            'author_id' => 'required',
         ]);
 
         $book->update([
-            'title'       => $request->title,
-            'file'        => $request->file,
+            'title' => $request->title,
+            'file' => $request->file,
             'description' => $request->description,
-            'status'      => $request->status
+            'status' => $request->status
         ]);
 
         $book->tags()->sync($request->tag_id);
@@ -174,13 +173,13 @@ class BookController extends Controller
         $book->categories()->sync($request->category_id);
 
         if ($request->hasFile('pic')) {
-            File::delete(public_path('uploads/book/').$book->pic);
-            $picName = $this->upload->uploadImage($request,'pic',public_path('uploads/book'));
+            File::delete(public_path('uploads/book/') . $book->pic);
+            $picName = $this->upload->uploadImage($request, 'pic', public_path('uploads/book'));
             $book->update(['pic' => $picName]);
         }
         return back()->with([
-            'url'     => 'books.index',
-            'type'    => 'success',
+            'url' => 'books.index',
+            'type' => 'success',
             'message' => 'تم تعديل الكتاب بنجاح '
         ]);
     }
@@ -199,7 +198,7 @@ class BookController extends Controller
         $book->categories()->detach();
 
         return back()->with([
-            'type'    => 'success',
+            'type' => 'success',
             'message' => 'تم حذف الكتاب بنجاح '
         ]);
     }

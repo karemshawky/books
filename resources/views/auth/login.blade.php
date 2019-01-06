@@ -22,11 +22,9 @@
     <!--end::Web font -->
 
     <!--begin::Global Theme Styles -->
-    <link href="../backend/css/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />
-    <link href="../backend/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('backend/css/admin.css') }}">
     <!--end::Global Theme Styles -->
-
-    <link rel="shortcut icon" href="../backend/img/favicon.ico" />
+    <link rel="shortcut icon" href="../backend/images/favicon.ico" />
 </head>
 <!-- end::Head -->
 
@@ -37,12 +35,12 @@
     <div class="m-grid m-grid--hor m-grid--root m-page">
 
         <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-1"
-            id="m_login" style="background-image: url(../backend/img/bg-7.jpg);">
+            id="m_login" style="background-image: url(../backend/images/bg-7.jpg);">
             <div class="m-grid__item m-grid__item--fluid m-login__wrapper">
                 <div class="m-login__container">
                     <div class="m-login__logo">
                         <a href="#">
-                            <img src="../backend/img/logo-1.png">
+                            <img src="../backend/images/logo-1.png">
                         </a>
                     </div>
                     <div class="m-login__signin">
@@ -93,11 +91,12 @@
     </div>
     <!-- end:: Page -->
     <!--begin::Global Theme Bundle -->
-    <script src="../backend/js/vendors.bundle.js" type="text/javascript"></script>
-    <script src="../backend/js/scripts.bundle.js" type="text/javascript"></script>
+    {{-- <script src="../backend/js/vendors.bundle.js" type="text/javascript"></script>
+    <script src="../backend/js/scripts.bundle.js" type="text/javascript"></script> --}}
     <!--end::Global Theme Bundle -->
     <!--begin::Page Scripts -->
-    <script src="../backend/js/login.js" type="text/javascript"></script>
+    {{-- <script src="../backend/js/login.js" type="text/javascript"></script> --}}
+    <script src="{{ asset('backend/js/login.js') }}" type="text/javascript"></script>
     <!--end::Page Scripts -->
 </body>
 <!-- end::Body -->

@@ -14,6 +14,14 @@ try {
     require('bootstrap');
 } catch (e) {}
 
+
+require ('/../backend/vendors.bundle.js');
+// require ('../backend/scripts.js');
+// require ('../backend/datatables.bundle.js');
+// require ('../backend/actions.js');
+// require ('../backend/dashboard.js');
+// require ('../backend/multiple-controls.js');
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

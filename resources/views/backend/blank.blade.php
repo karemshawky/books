@@ -21,18 +21,8 @@
 	});
 	</script>
 	<!--end::Web font -->
-	<!--begin::Global Theme Styles -->
-	<!-- <link href="../backend/css/vendors.bundle.css" rel="stylesheet" type="text/css" /> -->
-	<!-- RTL version: -->
-	<link href="{{ asset('backend/css/vendors.bundle.rtl.css') }}" rel="stylesheet" type="text/css" />
-	<!-- <link href="../backend/css/style.bundle.css" rel="stylesheet" type="text/css" /> -->
-	<!-- RTL version: -->
-	<link href="{{ asset('backend/css/style.bundle.rtl.css') }}" rel="stylesheet" type="text/css" />
-	<!--end::Global Theme Styles -->
-	<!--begin::Page Vendors Styles -->
-	<link href="{{ asset('backend/css/datatables.bundle.rtl.css') }}" rel="stylesheet" type="text/css" />
-	<!--end::Page Vendors Styles -->
-	<link rel="shortcut icon" href="{{ asset('backend/img/favicon.ico') }}" />
+	<link rel="shortcut icon" href="{{ asset('backend/images/favicon.ico') }}" />
+	<link rel="stylesheet" href="{{ asset('backend/css/admin.css') }}">
 </head>
 <!-- end::Head -->
 <!-- begin::Body -->
@@ -48,7 +38,7 @@
 					<div class="m-stack__item m-brand  m-brand--skin-dark ">
 						<div class="m-stack m-stack--ver m-stack--general">
 							<div class="m-stack__item m-stack__item--middle m-brand__logo">
-								<a href="../index.html" class="m-brand__logo-wrapper"> <img alt="" src="{{ asset('backend/img/logo_default_dark.png') }}" />
+								<a href="../index.html" class="m-brand__logo-wrapper"> <img alt="" src="{{ asset('backend/images/logo_default_dark.png') }}" />
 								</a>
 							</div>
 							<div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -82,13 +72,13 @@
 										<a href="#" class="m-nav__link m-dropdown__toggle"> 
 											<span class="m-topbar__username text-primary" > {{ auth()->user()->name }} </span>
 											<span class="m-topbar__userpic">
-												<img src="{{ asset('backend/img/user4.jpg') }}" class="m--img-rounded m--marginless" alt="" />
+												<img src="{{ asset('backend/images/user4.jpg') }}" class="m--img-rounded m--marginless" alt="" />
 											</span> <span class="m-topbar__username m--hide">Nick</span> </a>
 										<div class="m-dropdown__wrapper"> <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
 											<div class="m-dropdown__inner">
-												<div class="m-dropdown__header m--align-center" style="background: url({{ asset('backend/img/user_profile_bg.jpg') }}); background-size: cover;">
+												<div class="m-dropdown__header m--align-center" style="background: url({{ asset('backend/images/user_profile_bg.jpg') }}); background-size: cover;">
 													<div class="m-card-user m-card-user--skin-dark">
-														<div class="m-card-user__pic"> <img src="{{ asset('backend/img/user4.jpg') }}" class="m--img-rounded m--marginless"
+														<div class="m-card-user__pic"> <img src="{{ asset('backend/images/user4.jpg') }}" class="m--img-rounded m--marginless"
 															 alt="" />
 															<!--<span class="m-type m-type--lg m--bg-danger"><span class="m--font-light">S<span><span> -->
 														</div>
@@ -201,16 +191,17 @@
 	<div id="m_scroll_top" class="m-scroll-top"> <i class="la la-arrow-up"></i> </div>
 	<!-- end::Scroll Top -->
 	<!--begin::Global Theme Bundle -->
-	<script src="{{ asset('backend/js/vendors.bundle.js') }}" type="text/javascript"></script>
-	<script src="{{ asset('backend/js/scripts.bundle.js') }}" type="text/javascript"></script>
+	{{-- <script src="{{ asset('backend/js/vendors.bundle.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('backend/js/scripts.bundle.js') }}" type="text/javascript"></script> --}}
 	<!--end::Global Theme Bundle -->
 	<!--begin::Page Vendors -->
-	<script src="{{ asset('backend/js/datatables.bundle.js') }}" type="text/javascript"></script>
+	{{-- <script src="{{ asset('backend/js/datatables.bundle.js') }}" type="text/javascript"></script> --}}
 	<!--end::Page Vendors -->
 	<!--begin::Page Scripts -->
-	<script src="{{ asset('backend/js/actions.js') }}" type="text/javascript"></script>
+	{{-- <script src="{{ asset('backend/js/actions.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('backend/js/dashboard.js') }}" type="text/javascript"></script>
-	<script src="{{ asset('backend/js/multiple-controls.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('backend/js/multiple-controls.js') }}" type="text/javascript"></script> --}}
+	<script src="{{ asset('backend/js/admin.js') }}" type="text/javascript"></script>
 	<!--end::Page Scripts -->
 	<script>
 		$(document).ready(function(){
