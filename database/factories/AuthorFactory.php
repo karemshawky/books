@@ -4,10 +4,10 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Author::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'about' => $faker->text,
-        'pic' => null,
+        'name'    => $faker->name,
+        'about'   => $faker->text(600),
+        'pic'     => 'no-image.png',
         'user_id' => 1,
-        'status' => 1
+        'status'  => 1
     ];
 });

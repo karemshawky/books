@@ -1,4 +1,5 @@
-<?php require_once 'header.php'; ?>
+@extends('front.blank')
+@section('content')
 
 <div class="space10"></div>
 <!-- BLOG CONTENT -->
@@ -6,7 +7,7 @@
 	<div class="container">
 		<div class="row">
 			<!-- Sidebar -->
-			<aside class="col-sm-4">
+			{{-- <aside class="col-sm-4">
 				<div class="contact-info space50">
 					<h5 class="heading space40"><span>Contact Us</span></h5>
 					<div class="media-list">
@@ -35,22 +36,22 @@
 						</div>
 					</div>
 				</div>
-			</aside>
-			<aside class="col-sm-8 space70">
-				<h5 class="heading space40"><span>Contact Form</span></h5>
+			</aside> --}}
+			<aside class="col-sm-12 space70">
+				<h5 class="heading space40"><span>تواصل معنا</span></h5>
 				<form method="post" action="#" id="form" role="form" class="form ">
 					<div class="row">
 						<div class="col-md-6 space20">
-							<input name="name" id="name" class="input-md form-control" placeholder="Name *" maxlength="100" required="" type="text"> </div>
+							<input name="name" id="name" class="input-md form-control" placeholder="الأسم *" maxlength="100" required="required" type="text"> </div>
 						<div class="col-md-6 space20">
-							<input name="email" id="email" class="input-md form-control" placeholder="Email *" maxlength="100" required="" type="email"> </div>
+							<input name="email" id="email" class="input-md form-control" placeholder="البريد الإلكترونى *" maxlength="100" required="required" type="email"> </div>
 					</div>
 					<div class="space20">
-						<input class="input-md form-control" placeholder="Subject" maxlength="100" required="" type="text"> </div>
+						<input class="input-md form-control" placeholder="عنوان الموضوع" maxlength="100" required="" type="text"> </div>
 					<div class="space20">
-						<textarea name="text" id="text" class="input-md form-control" rows="6" placeholder="Message" maxlength="400"></textarea>
+						<textarea name="text" id="text" class="input-md form-control" rows="6" placeholder="الرسالة" maxlength="400"></textarea>
 					</div>
-					<button type="submit" class="btn-black"> Send a Message </button>
+					<button type="submit" class="btn-black"> أرسل </button>
 				</form>
 			</aside>
 		</div>
@@ -58,5 +59,4 @@
 </div>
 <div class="clearfix space20"></div>
 <div class="space20"></div>
-
-<?php require_once 'footer.php'; ?>
+@endsection

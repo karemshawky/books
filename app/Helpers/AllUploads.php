@@ -28,7 +28,7 @@ class AllUploads
             {
                 $img->resize($width, $height);
             }
-            $img->save($path . '/' . $imagename, 80);
+            $img->save($path . '/' . $imagename, 70);
             return $imagename;
         }
     }
@@ -55,7 +55,7 @@ class AllUploads
                 {
                     $img->resize($width, $height);
                 }
-                $img->save($path . '/' . $imagename, 80);
+                $img->save($path . '/' . $imagename, 70);
                 $name[] = $imagename;
             }
             return $name;

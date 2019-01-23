@@ -53,8 +53,8 @@ class TagController extends Controller
         ]);
 
         return back()->with([
-            'url' => 'tags.index',
-            'type' => 'success',
+            'url'     => 'tags.index',
+            'type'    => 'success',
             'message' => 'تم تسجيل الكلمة المفتاحية بنجاح '
         ]);
     }
@@ -88,8 +88,8 @@ class TagController extends Controller
         ]);
 
         return back()->with([
-            'url' => 'tags.index',
-            'type' => 'success',
+            'url'     => 'tags.index',
+            'type'    => 'success',
             'message' => 'تم تعديل الكلمة المفتاحية بنجاح '
         ]);
     }
@@ -105,8 +105,8 @@ class TagController extends Controller
         $tag->delete();
 
         return back()->with([
-            'url' => '',
-            'type' => 'success',
+            'url'     => '',
+            'type'    => 'success',
             'message' => 'تم حذف الكلمة المفتاحية بنجاح'
         ]);
     }

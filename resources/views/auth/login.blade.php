@@ -24,7 +24,7 @@
     <!--begin::Global Theme Styles -->
     <link rel="stylesheet" href="{{ asset('backend/css/admin.css') }}">
     <!--end::Global Theme Styles -->
-    <link rel="shortcut icon" href="../backend/images/favicon.ico" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
 </head>
 <!-- end::Head -->
 
@@ -35,12 +35,12 @@
     <div class="m-grid m-grid--hor m-grid--root m-page">
 
         <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-1"
-            id="m_login" style="background-image: url(../backend/images/bg-7.jpg);">
+            id="m_login" style="background-image: url(/images/bg-7.jpg);">
             <div class="m-grid__item m-grid__item--fluid m-login__wrapper">
                 <div class="m-login__container">
                     <div class="m-login__logo">
                         <a href="#">
-                            <img src="../backend/images/logo-1.png">
+                            <img src="/images/logo-1.png">
                         </a>
                     </div>
                     <div class="m-login__signin">

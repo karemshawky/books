@@ -85,12 +85,13 @@ class AuthorController extends Controller
         $author = Author::create([
             'name'    => $request->name,
             'about'   => $request->about,
+            'pic'     => 'no-image.png',
             'user_id' => auth()->id(),
             'status'  => $request->status
         ]);
 
         if ($request->hasFile('pic')) {
-            $picName = $this->upload->uploadImage($request,'pic',public_path('uploads/author'));
+            $picName = $this->upload->uploadImage($request,'pic',public_path('uploads/author'),640,480);
             $author->update(['pic' => $picName]);
         }
 
@@ -146,7 +147,7 @@ class AuthorController extends Controller
 
         if ($request->hasFile('pic')) {
             File::delete(public_path('uploads/author/').$author->pic);
-            $picName = $this->upload->uploadImage($request,'pic',public_path('uploads/author'));
+            $picName = $this->upload->uploadImage($request,'pic',public_path('uploads/author'),640,480);
             $author->update(['pic' => $picName]);
         }
 

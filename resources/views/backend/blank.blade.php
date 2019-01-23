@@ -4,8 +4,8 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Metronic | Actions</title>
-	<meta name="description" content="Actions example page">
+	<title>{{ config('app.name') }} | Admin</title>
+	<meta name="description" content="Admin Dashboard">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!--begin::Web font -->
@@ -21,7 +21,7 @@
 	});
 	</script>
 	<!--end::Web font -->
-	<link rel="shortcut icon" href="{{ asset('backend/images/favicon.ico') }}" />
+	<link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}" />
 	<link rel="stylesheet" href="{{ asset('backend/css/admin.css') }}">
 </head>
 <!-- end::Head -->
@@ -38,7 +38,7 @@
 					<div class="m-stack__item m-brand  m-brand--skin-dark ">
 						<div class="m-stack m-stack--ver m-stack--general">
 							<div class="m-stack__item m-stack__item--middle m-brand__logo">
-								<a href="../index.html" class="m-brand__logo-wrapper"> <img alt="" src="{{ asset('backend/images/logo_default_dark.png') }}" />
+								<a href="../index.html" class="m-brand__logo-wrapper"> <img alt="" src="{{ asset('/images/logo_default_dark.png') }}" />
 								</a>
 							</div>
 							<div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -72,13 +72,13 @@
 										<a href="#" class="m-nav__link m-dropdown__toggle"> 
 											<span class="m-topbar__username text-primary" > {{ auth()->user()->name }} </span>
 											<span class="m-topbar__userpic">
-												<img src="{{ asset('backend/images/user4.jpg') }}" class="m--img-rounded m--marginless" alt="" />
+												<img src="{{ asset('/images/user4.jpg') }}" class="m--img-rounded m--marginless" alt="" />
 											</span> <span class="m-topbar__username m--hide">Nick</span> </a>
 										<div class="m-dropdown__wrapper"> <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
 											<div class="m-dropdown__inner">
-												<div class="m-dropdown__header m--align-center" style="background: url({{ asset('backend/images/user_profile_bg.jpg') }}); background-size: cover;">
+												<div class="m-dropdown__header m--align-center" style="background: url({{ asset('/images/user_profile_bg.jpg') }}); background-size: cover;">
 													<div class="m-card-user m-card-user--skin-dark">
-														<div class="m-card-user__pic"> <img src="{{ asset('backend/images/user4.jpg') }}" class="m--img-rounded m--marginless"
+														<div class="m-card-user__pic"> <img src="{{ asset('/images/user4.jpg') }}" class="m--img-rounded m--marginless"
 															 alt="" />
 															<!--<span class="m-type m-type--lg m--bg-danger"><span class="m--font-light">S<span><span> -->
 														</div>
@@ -159,6 +159,11 @@
 							<a href="#" class="m-menu__link ">
 								<i class="m-menu__link-icon flaticon-user"></i>
 								<span class="m-menu__link-text"> الأعضاء </span></a>
+						</li>
+						<li class="m-menu__item " aria-haspopup="true">
+							<a href="{{  route('settings.index') }}" class="m-menu__link ">
+								<i class="m-menu__link-icon flaticon-settings"></i>
+								<span class="m-menu__link-text"> عن الموقع </span></a>
 						</li>
 					</ul>
 				</div>
