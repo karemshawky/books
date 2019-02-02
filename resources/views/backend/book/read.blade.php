@@ -71,7 +71,7 @@
 							<h6> معلومات عن الكتاب </h6>
 						</td>
 						<td class="w-75 p-3">
-							<h5> {{ strip_tags(html_entity_decode($book->description)) }} </h5>
+							<h5> {!! $book->description !!} </h5>
 						</td>
 					</tr>
 					<tr>
@@ -100,18 +100,10 @@
 					</tr>
 					<tr>
 						<td class="w-25 p-3">
-							<h6> عدد المشاهدات </h6>
-						</td>
-						<td class="w-75 p-3">
-							<h5> 15 </h5>
-						</td>
-					</tr>
-					<tr>
-						<td class="w-25 p-3">
 							<h6> عدد مرات التحميل </h6>
 						</td>
 						<td class="w-75 p-3">
-							<h5> 15 </h5>
+							<h5> - </h5>
 						</td>
 					</tr>
 				</tbody>

@@ -43,7 +43,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
 						<div class="product-info" style="display:-webkit-inline-box;float: right;">
 							@foreach ($book->tags as $tags)
-								<h4><a href="{{ route('search', $tags->name) }}">  {{ $tags->name .' , ' }} </a></h4>
+								<h4><a href="{{ route('tags', $tags->name) }}">  {{ $tags->name .' , ' }} </a></h4>
 							@endforeach					
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 								<img src="{{ asset('uploads/book/' . $related->pic ) }}" class="media-pic" width="200" height="200">
 							</div>
 							<div class="product-info">
-								<h3 class="product-title"><a href="{{ route('books.id',$related->id) }}"> {{ $related->title }} </a></h3>
+								<h3 class="product-title"><a href="{{ route('books.slug',$related->slug) }}"> {{ $related->title }} </a></h3>
 							</div>
 						</div>
 					</div>

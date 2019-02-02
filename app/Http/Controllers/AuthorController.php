@@ -12,9 +12,16 @@ class AuthorController extends Controller
     /**
      * Variable for upload files
      *
-     * @var $upload
+     * @var string
      */
     public $upload;
+
+    /**
+     * Variable for author picture path
+     *
+     * @var string
+     */
+    public $picPath;
 
     /**
      * __construct
@@ -25,6 +32,8 @@ class AuthorController extends Controller
     public function __construct(Upload $upload)
     {
         $this->upload = $upload;
+        $this->picPath = public_path('uploads/author/');
+
     }
 
     /**
@@ -49,7 +58,7 @@ class AuthorController extends Controller
                                                           return $author->user->name;
                                                       })
                                                       ->editColumn('about', function ($author) {
-                                                          return strip_tags(html_entity_decode(str_limit($author->about, 50)));
+                                                          return removeStripTagsAndDecode(str_limit($author->about, 50));
                                                       })
                                                       ->editColumn('status', function ($author) {
                                                           return ($author->status == 1) ? 'نشط' : 'غير نشط' ;
@@ -84,6 +93,7 @@ class AuthorController extends Controller
 
         $author = Author::create([
             'name'    => $request->name,
+            'slug'    => make_slug($request->name, '-'),
             'about'   => $request->about,
             'pic'     => 'no-image.png',
             'user_id' => auth()->id(),
@@ -91,7 +101,7 @@ class AuthorController extends Controller
         ]);
 
         if ($request->hasFile('pic')) {
-            $picName = $this->upload->uploadImage($request,'pic',public_path('uploads/author'),640,480);
+            $picName = $this->upload->uploadImage($request,'pic',$this->picPath,640,480);
             $author->update(['pic' => $picName]);
         }
 
@@ -141,13 +151,16 @@ class AuthorController extends Controller
 
         $author->update([
             'name'   => $request->name,
+            'slug'   => make_slug($request->name, '-'),
             'about'  => $request->about,
             'status' => $request->status
         ]);
 
         if ($request->hasFile('pic')) {
-            File::delete(public_path('uploads/author/').$author->pic);
-            $picName = $this->upload->uploadImage($request,'pic',public_path('uploads/author'),640,480);
+            if(File::exists($this->picPath . $author->pic) && $author->pic != 'no-image.png') {
+                File::delete($this->picPath . $author->pic);
+            }
+            $picName = $this->upload->uploadImage($request,'pic',$this->picPath,640,480);
             $author->update(['pic' => $picName]);
         }
 
@@ -166,6 +179,10 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
+        if(File::exists($this->picPath . $author->pic) && $author->pic != 'no-image.png') {
+            File::delete($this->picPath . $author->pic);
+        }
+
         $author->delete();
 
         return back()->with([

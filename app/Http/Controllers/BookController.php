@@ -20,6 +20,13 @@ class BookController extends Controller
     public $upload;
 
     /**
+     * Variable for author picture path
+     *
+     * @var string
+     */
+    public $picPath;
+
+    /**
      * __construct
      *
      * @param Upload $upload
@@ -28,6 +35,7 @@ class BookController extends Controller
     public function __construct(Upload $upload)
     {
         $this->upload = $upload;
+        $this->picPath = public_path('uploads/book/');
     }
 
     /**
@@ -47,17 +55,17 @@ class BookController extends Controller
     public function getBooks()
     {
         return datatables(Book::with(['categories:name', 'authors:name'])->get())->addColumn('action', 'backend.book.action')
-                ->editColumn('categories', function ($book) {
-                    return $book->categories->implode('name', ' - ');
-                })->editColumn('authors', function ($book) {
-                    return $book->authors->implode('name', ' - ');
-                })->editColumn('description', function ($book) {
-                    return (empty($book->description)) ? '-' : strip_tags(html_entity_decode(str_limit($book->description, 50)));
-                })->editColumn('status', function ($book) {
-                    return ($book->status == 1) ? 'نشط' : 'غير نشط';
-                })->editColumn('date', function ($book) {
-                    return $book->created_at->diffForHumans();
-                })->toJson();
+                                ->editColumn('categories', function ($book) {
+                                    return $book->categories->implode('name', ' - ');
+                                })->editColumn('authors', function ($book) {
+                                    return $book->authors->implode('name', ' - ');
+                                })->editColumn('description', function ($book) {
+                                    return (empty($book->description)) ? '-' : removeStripTagsAndDecode(str_limit($book->description, 50));
+                                })->editColumn('status', function ($book) {
+                                    return ($book->status == 1) ? 'نشط' : 'غير نشط';
+                                })->editColumn('date', function ($book) {
+                                    return $book->created_at->diffForHumans();
+                                })->toJson();
     }
 
     /**
@@ -92,6 +100,7 @@ class BookController extends Controller
 
         $book = Book::create([
             'title'       => $request->title,
+            'slug'        => make_slug($request->title, '-'),
             'file'        => $request->file,
             'description' => $request->description,
             'status'      => $request->status,
@@ -104,7 +113,7 @@ class BookController extends Controller
         $book->categories()->attach($request->category_id);
 
         if ($request->hasFile('pic')) {
-            $picName = $this->upload->uploadImage($request, 'pic', public_path('uploads/book'),600,800);
+            $picName = $this->upload->uploadImage($request, 'pic', $this->picPath,600,800);
             $book->update(['pic' => $picName]);
         }
         return back()->with([
@@ -164,6 +173,7 @@ class BookController extends Controller
 
         $book->update([
             'title'       => $request->title,
+            'slug'        => make_slug($request->title, '-'),
             'file'        => $request->file,
             'description' => $request->description,
             'status'      => $request->status
@@ -174,8 +184,10 @@ class BookController extends Controller
         $book->categories()->sync($request->category_id);
 
         if ($request->hasFile('pic')) {
-            File::delete(public_path('uploads/book/') . $book->pic);
-            $picName = $this->upload->uploadImage($request, 'pic', public_path('uploads/book'),600,800);
+            if( File::exists($this->picPath . $book->pic) && $book->pic != 'no-image.png' ) {
+                File::delete($this->picPath . $book->pic);
+            }
+            $picName = $this->upload->uploadImage($request, 'pic', $this->picPath,600,800);
             $book->update(['pic' => $picName]);
         }
         return back()->with([
@@ -197,6 +209,10 @@ class BookController extends Controller
         $book->tags()->detach();
         $book->authors()->detach();
         $book->categories()->detach();
+
+        if(File::exists($this->picPath . $book->pic) && $book->pic != 'no-image.png' ) {
+            File::delete($this->picPath . $book->pic);
+        }
 
         return back()->with([
             'type'    => 'success',

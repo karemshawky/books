@@ -29,7 +29,7 @@
 					</tr>
 					<tr>
 						<td class="w-25 p-3"> <h6> معلومات عن المؤلف  </h6> </td>
-						<td class="w-75 p-3"> <h5> {{ strip_tags(html_entity_decode($author->about)) }} </h5> </td>
+						<td class="w-75 p-3"> <h5> {!! $author->about !!} </h5> </td>
 					</tr>
 					<tr>
 						<td class="w-25 p-3"> <h6> المسؤول </h6> </td>

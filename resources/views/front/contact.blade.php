@@ -39,7 +39,7 @@
 			</aside> --}}
 			<aside class="col-sm-12 space70">
 				<h5 class="heading space40"><span>تواصل معنا</span></h5>
-				<form method="post" action="#" id="form" role="form" class="form ">
+				<form action="javascript:;" id="form" role="form" class="form ">
 					<div class="row">
 						<div class="col-md-6 space20">
 							<input name="name" id="name" class="input-md form-control" placeholder="الأسم *" maxlength="100" required="required" type="text"> </div>

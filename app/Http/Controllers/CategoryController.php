@@ -62,7 +62,7 @@ class CategoryController extends Controller
             ]);
         }
 
-        Category::create(['name' => $request->name, 'status' => $request->status]);
+        Category::create(['name' => $request->name, 'slug' => make_slug($request->name, '-'),'status' => $request->status]);
 
         return back()->with([
             'url'     => 'cats.index',
@@ -98,6 +98,7 @@ class CategoryController extends Controller
 
         Category::whereId($category)->first()->update([
             'name'   => $request->name,
+            'slug'   => make_slug($request->name, '-'),
             'status' => $request->status
         ]);
         

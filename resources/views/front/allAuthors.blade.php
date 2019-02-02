@@ -14,7 +14,7 @@
 					<div class="item-thumb"> <img width="150" height="200" src="{{ asset('uploads/author/' . $author->pic) }}" /> </div>
 					<div class="product-info">
 							<div class="author">
-								<h5> <a href="{{ route('authors.id',$author->id) }}"> {{ $author->name }}  </a> </h5> 
+								<h5> <a href="{{ route('authors.slug',$author->slug) }}"> {{ $author->name }}  </a> </h5> 
 							</div>
 					</div>
 				</div>

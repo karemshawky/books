@@ -12,7 +12,7 @@ class BooksTableSeeder extends Seeder
     public function run()
     {
         factory(App\Book::Class, 100)->create()->each(function ($book) {
-            $book->authors()->saveMany(App\Author::all()->shuffle()->take(2));
+            $book->authors()->saveMany(App\Author::all()->shuffle()->take(1));
             $book->categories()->saveMany(App\Category::all()->shuffle()->take(1));
             $book->tags()->saveMany(App\Tag::all()->shuffle()->take(4));
         });

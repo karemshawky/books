@@ -14,7 +14,7 @@
                     Portlet sub title goes here
                 </h3>
                 <h2 class="m-portlet__head-label m-portlet__head-label--primary">
-                    <span>تعديل كلمة مفتاحية </span>
+                    <span>تعديل كلمة  </span>
                 </h2>
             </div>
         </div>

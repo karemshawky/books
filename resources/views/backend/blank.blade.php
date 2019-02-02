@@ -22,6 +22,7 @@
 	</script>
 	<!--end::Web font -->
 	<link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}" />
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css"/>
 	<link rel="stylesheet" href="{{ asset('backend/css/admin.css') }}">
 </head>
 <!-- end::Head -->
@@ -38,8 +39,7 @@
 					<div class="m-stack__item m-brand  m-brand--skin-dark ">
 						<div class="m-stack m-stack--ver m-stack--general">
 							<div class="m-stack__item m-stack__item--middle m-brand__logo">
-								<a href="../index.html" class="m-brand__logo-wrapper"> <img alt="" src="{{ asset('/images/logo_default_dark.png') }}" />
-								</a>
+								<a href="{{ route('backHome') }}" class="m-brand__logo-wrapper"> <img alt="" src="{{ asset('/images/logo_default_dark.png') }}" /></a>
 							</div>
 							<div class="m-stack__item m-stack__item--middle m-brand__tools">
 								<!-- BEGIN: Left Aside Minimize Toggle -->
@@ -155,11 +155,11 @@
 								<i class="m-menu__link-icon flaticon-map"></i>
 								<span class="m-menu__link-text"> كلمات مفتاحية </span></a>
 						</li>
-						<li class="m-menu__item " aria-haspopup="true">
+						{{-- <li class="m-menu__item " aria-haspopup="true">
 							<a href="#" class="m-menu__link ">
 								<i class="m-menu__link-icon flaticon-user"></i>
 								<span class="m-menu__link-text"> الأعضاء </span></a>
-						</li>
+						</li> --}}
 						<li class="m-menu__item " aria-haspopup="true">
 							<a href="{{  route('settings.index') }}" class="m-menu__link ">
 								<i class="m-menu__link-icon flaticon-settings"></i>

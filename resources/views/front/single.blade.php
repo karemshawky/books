@@ -32,19 +32,19 @@
 						<h2 class="novel-title space30"> {{ $book->title }} </h2>
 						<div class="col-md-6 col-sm-6 ps-price space30"><img src="{{ asset('images/writer.png') }}"> المؤلف : 
 							@foreach ($book->authors as $author)
-								<a href="{{ route('authors.id', $author->id) }}" class="writer"> {{ $author->name }} </a>
+								<a href="{{ route('authors.slug', $author->slug) }}" class="writer"> {{ $author->name }} </a>
 							@endforeach 
 						</div>
 						<div class="col-md-6 col-sm-6 ps-price space30"><img src="{{ asset('images/layout.png') }}"> القسم : 
 							@foreach ($book->categories as $category)
-								<a href="{{ route('cat', $category->id) }}" class="writer"> {{ $category->name }} </a>
+								<a href="{{ route('cat', $category->slug) }}" class="writer"> {{ $category->name }} </a>
 							@endforeach 
 						</div>
 					</div>
-					<p> {{ $book->description }} </p>
+					<p> {!! $book->description !!} </p>
 				</div>
 				<div class="btn-dwn space50">
-					<a href="{{ route('reads.id', $book->id) }}" class="btn btn-danger btn-lg" role="button"> اقرأ أون لاين </a>
+					<a href="{{ route('reads.slug', $book->slug) }}" class="btn btn-danger btn-lg" role="button"> اقرأ أون لاين </a>
 					<a href="https://drive.google.com/uc?id={{ $book->file }}&export=download" class="btn btn-success btn-lg"
 					 role="button"> تحميل الكتاب </a>
 				</div>
@@ -54,7 +54,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
 						<div class="product-info" style="display:-webkit-inline-box;float: right;">
 							@foreach ($book->tags as $tags)
-								<h4><a href="{{ route('search', $tags->name) }}">  {{ $tags->name .' , ' }} </a></h4>
+								<h4><a href="{{ route('tags', $tags->name) }}">  {{ $tags->name .' , ' }} </a></h4>
 							@endforeach					
 						</div>
 					</div>
@@ -70,7 +70,7 @@
 								<img src="{{ asset('uploads/book/' . $related->pic ) }}" class="media-pic" width="200" height="200">
 							</div>
 							<div class="product-info">
-								<h3 class="product-title"><a href="{{ route('books.id',$related->id) }}"> {{ $related->title }} </a></h3>
+								<h3 class="product-title"><a href="{{ route('books.slug',$related->slug) }}"> {{ $related->title }} </a></h3>
 							</div>
 						</div>
 					</div>

@@ -14,11 +14,11 @@
 				<div class="product-item">
 					<div class="item-thumb"> <img width="150" height="200" src="{{ asset('uploads/book/' . $book->pic) }}" /> </div>
 					<div class="product-info">
-						<h3 class="product-title"><a href="{{ route('books.id',$book->id) }}"> {{ $book->title }} </a></h3>
+						<h3 class="product-title"><a href="{{ route('books.slug',$book->slug) }}"> {{ $book->title }} </a></h3>
 						<div class="author">
 							<h5> المؤلف :
 								@foreach ($book->authors as $author)
-									<a href="{{ route('authors.id',$author->id) }}"> {{ $author->name }}  </a> 
+									<a href="{{ route('authors.slug',$author->slug) }}"> {{ $author->name }}  </a> 
 								@endforeach
 							</h5> 
 						</div>

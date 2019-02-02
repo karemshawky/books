@@ -1,32 +1,16 @@
 <!DOCTYPE html>
 <!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
 <!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
-<!--[if gt IE 9]><!-->	<html dir="rtl" lang="ar"> <!--<![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
+ <!--<![endif]-->
 <head>
-    @php
-        $settings = siteSettings();
-        $description = strip_tags(html_entity_decode($settings->description));
-    @endphp
+
     <!-- Meta -->
     <meta charset="utf-8">
-    <meta name="keywords" content="{{ $settings->tags }}"/>
-    <meta name="author" content="karem shawky, {{ $settings->mail }}">
-    <meta name="description" content="{{ $description }}"/>
-    <meta name="language" content="AR">
-    <meta name="topic" content="{{ $settings->title }}">
-    <meta name="subject" content="{{ $settings->title }}">
-    <meta name="url" content="{{ url()->current() }}">
-    <meta name="category" content="">
 
-    <!-- OG META-->
-    <meta name="fb:page_id" content="43929265776" />
-    <meta name="og:title" content="{{ $settings->title }}"/>
-    <meta name="og:type" content="كتب"/>
-    <meta name="og:url" content="{{ url()->current() }}"/>
-    <meta name="og:image" content="http://ia.media-imdb.com/rock.jpg"/>
-    <meta name="og:site_name" content="{{ $settings->title }}"/>
-    <meta name="og:description" content="{{ $description }}"/>
-
+    {!! SEO::generate() !!}
+    
     <!-- Apple Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta content="yes" name="apple-touch-fullscreen" />
@@ -34,8 +18,6 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=320, initial-scale=2.3, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ $settings->title }}</title>
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,8 +63,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="top-search3 pull-right">
-                                <form>
-                                    <input type="text" placeholder="أبحث عن كتاب أو مؤلف ">
+                                <form action="{{ route('search') }}" method="GET">
+                                    <input type="text" name="word" placeholder="أبحث عن كتاب أو مؤلف ">
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
@@ -118,7 +100,7 @@
                                                 @foreach (siteCategories() as $category)
                                                     <li>
                                                         <div>
-                                                            <a href="{{ route('cat', $category->id) }}"> {{ $category->name }} </a>
+                                                            <a href="{{ route('cat', $category->slug) }}"> {{ $category->name }} </a>
                                                         </div>
                                                     </li>
                                                 @endforeach
@@ -168,16 +150,19 @@
                             </li>
                         </ul>
                         <div class="space20"></div>
+                        @php
+                            $allMetaPage = siteSettings();
+                        @endphp
                         <ul class="f-social">
-                            <li><a href="{{ $settings->facebook }}" target="_blank" class="fa fa-facebook"></a></li>
-                            <li><a href="{{ $settings->twitter }}" target="_blank" class="fa fa-twitter"></a></li>
+                            <li><a href="{{ $allMetaPage->facebook }}" target="_blank" class="fa fa-facebook"></a></li>
+                            <li><a href="{{ $allMetaPage->twitter }}" target="_blank" class="fa fa-twitter"></a></li>
                             <!-- <li><a href="https://feedburner.google.com/" class="fa fa-rss"></a></li> -->
-                            <li><a href="mailto:{{ $settings->mail }}" target="_blank" class="fa fa-envelope"></a></li>
-                            <li><a href="{{ $settings->instagram }}" target="_blank" class="fa fa-instagram"></a></li>
-                            <li><a href="{{ $settings->pinterest }}" target="_blank" class="fa fa-pinterest"></a></li>
+                            <li><a href="mailto:{{ $allMetaPage->mail }}" target="_blank" class="fa fa-envelope"></a></li>
+                            <li><a href="{{ $allMetaPage->instagram }}" target="_blank" class="fa fa-instagram"></a></li>
+                            <li><a href="{{ $allMetaPage->pinterest }}" target="_blank" class="fa fa-pinterest"></a></li>
                         </ul>
                         <div class="space10"></div>
-                        <p>  جميع الحقوق محفوظة 2018 © </p><p>برمجة و تطوير <a href="#">Karem Shawky</a> </p>
+                        <p>  جميع الحقوق محفوظة 2019 © </p><p>برمجة و تطوير <a href="javascript:;">Karem Shawky</a> </p>
                     </div>
                 </div>
             </div>	
@@ -194,8 +179,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="top-search3 search4">
-                            <form>
-                                <input type="text" placeholder="أبحث عن كتاب أو مؤلف ">
+                            <form action="{{ route('search') }}" method="GET">
+                                <input type="text" name="word" placeholder="أبحث عن كتاب أو مؤلف ">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>

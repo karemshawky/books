@@ -181,7 +181,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
-
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
     ],
 
     /*
@@ -229,11 +229,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
+
         /** My Aliases */
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'Image' => Intervention\Image\Facades\Image::class
-
+        'Image' => Intervention\Image\Facades\Image::class,
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ],
 ];

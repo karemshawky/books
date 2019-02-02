@@ -32,7 +32,7 @@
 					<div class="ps-header">
 						<h2 class="novel-title space30"> نبذة عن المؤلف </h2>
 					</div>
-					<p> {{ $author->about }} </p>
+					<p> {!! $author->about !!} </p>
 				</div>
 				<div class="sep space30"></div>
 				<div class="related row">
@@ -44,7 +44,7 @@
 								<img width="150" height="200" src="{{ asset('uploads/book/' . $book->pic )}}">
 							</div>
 							<div class="product-info">
-								<h3 class="product-title"><a href="{{ route('books.id', $book->id) }}"> {{ $book->title }} </a></h3>
+								<h3 class="product-title"><a href="{{ route('books.slug', $book->slug) }}"> {{ $book->title }} </a></h3>
 							</div>
 						</div>
 					</div>

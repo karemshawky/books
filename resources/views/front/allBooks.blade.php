@@ -16,14 +16,14 @@
 					<div class="item-thumb"> <img width="150" height="200" src="{{ asset('uploads/book/' . $book->pic) }}" /> </div>
 					<div class="product-info">
 						<h3 class="product-title">
-							<a href="{{ route( (Request::segment(1) == 'books') ? 'books.id' : 'reads.id', $book->id) }}"> 
+							<a href="{{ route( (Request::segment(1) == 'books') ? 'books.slug' : 'reads.slug', $book->slug) }}"> 
 								{{ $book->title }} 
 							</a>
 						</h3>
 						<div class="author">
 							<h5> المؤلف :
 								@foreach ($book->authors as $author)
-									<a href="{{ route('authors.id',$author->id) }}"> {{ $author->name }}  </a> 
+									<a href="{{ route('authors.slug',$author->slug) }}"> {{ $author->name }}  </a> 
 								@endforeach
 							</h5> 
 						</div>
