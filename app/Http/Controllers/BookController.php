@@ -104,7 +104,7 @@ class BookController extends Controller
             'file'        => $request->file,
             'description' => $request->description,
             'status'      => $request->status,
-            'pic'         => 'no-image.png',
+            'pic'         => 'girl.jpg',
             'user_id'     => auth()->id()
         ]);
 
@@ -184,7 +184,7 @@ class BookController extends Controller
         $book->categories()->sync($request->category_id);
 
         if ($request->hasFile('pic')) {
-            if( File::exists($this->picPath . $book->pic) && $book->pic != 'no-image.png' ) {
+            if( File::exists($this->picPath . $book->pic) && $book->pic != 'girl.jpg' ) {
                 File::delete($this->picPath . $book->pic);
             }
             $picName = $this->upload->uploadImage($request, 'pic', $this->picPath,600,800);
@@ -210,7 +210,7 @@ class BookController extends Controller
         $book->authors()->detach();
         $book->categories()->detach();
 
-        if(File::exists($this->picPath . $book->pic) && $book->pic != 'no-image.png' ) {
+        if(File::exists($this->picPath . $book->pic) && $book->pic != 'girl.jpg' ) {
             File::delete($this->picPath . $book->pic);
         }
 

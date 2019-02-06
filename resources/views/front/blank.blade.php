@@ -58,8 +58,10 @@
             <header>
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4 header-first">
-                        <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" class="img-responsive" alt=""/></a>
+                        <div class="col-md-6 header-first">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ asset('images/logo-12.png') }}" class="img-responsive main-logo" alt="logo" />
+                        </a>
                         </div>
                         <div class="col-md-6">
                             <div class="top-search3 pull-right">
@@ -68,9 +70,7 @@
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
-                        </div>
-                        <div class="col-md-2 search-small">
-                            <button type="button" class="fa fa-search fa-2x sch" data-toggle="modal" data-target="#myModal1"></button>
+                            <button type="button" class="fa fa-search fa-2x search-small sch" data-toggle="modal" data-target="#myModal1"></button>
                         </div>
                     </div>
                 </div>
@@ -178,7 +178,7 @@
                         <h4 class="modal-title">أبحث هنا </h4>
                     </div>
                     <div class="modal-body">
-                        <div class="top-search3 search4">
+                        <div class="search4">
                             <form action="{{ route('search') }}" method="GET">
                                 <input type="text" name="word" placeholder="أبحث عن كتاب أو مؤلف ">
                                 <button type="submit"><i class="fa fa-search"></i></button>

@@ -5,24 +5,26 @@ namespace App\Http\Controllers;
 use SEOMeta;
 use OpenGraph;
 //use Twitter;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 use App\Book;
 use App\Author;
 use App\Category;
-use App\Setting;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-
     public function __construct()
     {
-        SEOMeta::setCanonical(route('home'));
+        SEOMeta::setCanonical(url()->current());
         SEOMeta::addMeta('language', 'AR');
         SEOMeta::addMeta('url', url()->current());
         OpenGraph::addProperty('locale', 'ar-AR');
-        OpenGraph::addImage( route('home') . '/uploads/cover.jpg');
-        OpenGraph::setUrl( url()->current() );
+        OpenGraph::addImage(route('home') . '/uploads/cover.jpg');
+        OpenGraph::setUrl(url()->current());
+
     }
+
     /**
      * Show the application index page.
      *
@@ -59,11 +61,11 @@ class HomeController extends Controller
 
         SEOMeta::setTitle($book->title);
         SEOMeta::setDescription($metaDescription);
-        SEOMeta::addKeyword( array_pluck($book->tags, 'name') );
+        SEOMeta::addKeyword(array_pluck($book->tags, 'name'));
         SEOMeta::addMeta('topic', $book->title);
         OpenGraph::setTitle($book->title);
         OpenGraph::setDescription($metaDescription);
-        OpenGraph::addImage( route('home') . '/uploads/book/' . $book->pic);
+        OpenGraph::addImage(route('home') . '/uploads/book/' . $book->pic);
 
         return view('front.single', compact('book', 'relatedBooks'));
     }
@@ -95,11 +97,11 @@ class HomeController extends Controller
 
         SEOMeta::setTitle($book->title);
         SEOMeta::setDescription($metaDescription);
-        SEOMeta::addKeyword( array_pluck($book->tags, 'name') );
+        SEOMeta::addKeyword(array_pluck($book->tags, 'name'));
         SEOMeta::addMeta('topic', $book->title);
         OpenGraph::setTitle($book->title);
         OpenGraph::setDescription($metaDescription);
-        OpenGraph::addImage( route('home') . '/uploads/book/' . $book->pic);
+        OpenGraph::addImage(route('home') . '/uploads/book/' . $book->pic);
 
         return view('front.read', compact('book', 'relatedBooks'));
     }
@@ -131,7 +133,7 @@ class HomeController extends Controller
         SEOMeta::addMeta('topic', $author->name);
         OpenGraph::setTitle($author->name);
         OpenGraph::setDescription($metaDescription);
-        OpenGraph::addImage( route('home') . '/uploads/author/' . $author->pic);
+        OpenGraph::addImage(route('home') . '/uploads/author/' . $author->pic);
 
         return view('front.author', compact('author'));
     }
@@ -200,7 +202,7 @@ class HomeController extends Controller
                             ->latest('updated_at')
                             ->paginate(20)
                             ->appends($request->except('page'));
-                            
+
         SEOMeta::setTitle($word);
 
         return view('front.tag', compact('books', 'word'));
@@ -214,5 +216,30 @@ class HomeController extends Controller
     public function contact()
     {
         return view('front.contact');
+    }
+
+    /**
+     * Create XML Site Map
+     *
+     * @return void
+     */
+    public function createSiteMap() 
+    {
+        $sitemap = Sitemap::create()->add(Url::create('/'))
+                                    ->add(Url::create('/contactus'));
+
+        Book::all()->each(function (Book $book) use ($sitemap) {
+            $sitemap->add(Url::create("/books/{$book->slug}"));
+        });
+
+        Category::all()->each(function (Category $category) use ($sitemap) {
+            $sitemap->add(Url::create("/cats/{$category->slug}"));
+        });
+        
+        Author::all()->each(function (Author $author) use ($sitemap) {
+            $sitemap->add(Url::create("/authors/{$author->slug}"));
+        });
+
+        $sitemap->writeToFile(public_path('sitemap.xml'));
     }
 }

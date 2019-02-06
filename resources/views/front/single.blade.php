@@ -52,14 +52,14 @@
 				<div class="tags row">
 					<h3 class="space30"> كلمات مفتاحية </h3>
 					<div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
-						<div class="product-info" style="display:-webkit-inline-box;float: right;">
+						<div class="product-info book-tags">
 							@foreach ($book->tags as $tags)
 								<h4><a href="{{ route('tags', $tags->name) }}">  {{ $tags->name .' , ' }} </a></h4>
 							@endforeach					
 						</div>
 					</div>
 				</div>
-				<div class="space50"></div>
+				<div class="space30"></div>
 				<div class="sep space30"></div>
 				<div class="related row">
 					<h3 class="space30"> اقرأ أيضا </h3>

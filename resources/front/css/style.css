@@ -1615,11 +1615,11 @@ footer {
 }
 
 .pull-right {
-    float:left !important;
+    float:right !important;
 }
 
 .pull-left {
-    float:right !important;
+    float:left !important;
 }
 
 .ci-item-info h5 a {
@@ -2522,20 +2522,24 @@ footer {
 }
 
 .top-search3 {
+    bottom: 15px;
+}
+
+.top-search3 , .search4 {
     margin-right: -15px;
     width: 100%;
     position: relative;
     max-width: 525px;
 }
 
-.top-search3 input {
+.top-search3 input , .search4 input {
     border: 1px solid #c9c9c9;
     width: 100%;
     height: 35px;
     padding: 0 20px;
 }
 
-.top-search3 button {
+.top-search3 button , .search4 button{
     border: medium none;
     background: transparent;
     color: #888;
@@ -4911,10 +4915,11 @@ label.css-label {
 
     .search-small {
         z-index: 1;
-        top: 15px;
+        top: 18px;
         float: left;
         margin-left: 8%;
         display: unset !important;
+        position: relative;
     }
     
     .sch {
@@ -5160,7 +5165,7 @@ label.css-label {
 
     .home3 .navbar {
         margin-bottom: 0px;
-        margin-top: -50px;
+        margin-top: -18px;
     }
 
     .home3 .navbar-nav > li {
@@ -5412,4 +5417,70 @@ a.pp_arrow_next {
 .at-share-btn-elements{
     margin-top: 10px;
     z-index: 1;
+}
+.book-tags {
+    display:-webkit-inline-box;
+    float: right;
+}
+/** logo pic style */
+@media only screen and (min-width: 991px)  and (max-width: 1172px){
+    .sticky-wrapper{
+        height: 165px !important;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .main-logo {
+        width: 300px; 
+        height: 110px; 
+        position:absolute;
+        top: -40px;
+    }
+}
+@media only screen and (min-width: 768px)  and (max-width: 991px){
+    .main-logo {
+        width: 300px;
+        height: 110px; 
+        position:absolute;
+        top: -40px;
+        left: 40%;
+    }
+    .sticky-wrapper{
+        height: 150px !important;
+    }
+    .top-search3{
+        bottom: 10px !important;
+    }
+}
+@media only screen and (min-width: 470px)  and (max-width: 768px){
+    .main-logo {
+        width: 300px; 
+        position:absolute;
+        top: -40px;
+    }
+}
+@media only screen and (min-width: 300px)  and (max-width: 767px){
+    .sticky-wrapper{
+        height: 120px !important;
+    }
+}
+@media only screen and (max-width: 500px){
+    .media-pic {
+        width: 150px !important; 
+        height: 150px !important; 
+    }
+    .book-tags {
+        margin-right: 50px;
+    }
+}
+@media only screen and (max-width: 470px){
+    .main-logo {
+        width: 175px; 
+        position:absolute;
+    }
+}
+@media only screen and (max-width: 380px){
+    .media-pic {
+        width: 120px !important; 
+        height: 120px !important; 
+    }
 }
