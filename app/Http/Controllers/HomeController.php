@@ -20,9 +20,8 @@ class HomeController extends Controller
         SEOMeta::addMeta('language', 'AR');
         SEOMeta::addMeta('url', url()->current());
         OpenGraph::addProperty('locale', 'ar-AR');
-        OpenGraph::addImage(route('home') . '/uploads/cover.jpg');
+        OpenGraph::addImage(route('home') . '/uploads/site-cover.png');
         OpenGraph::setUrl(url()->current());
-
     }
 
     /**

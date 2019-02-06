@@ -23,7 +23,7 @@ Route::get('/cats/{slug}', 'HomeController@getCategory')->name('cat');
 Route::get('/contactus', 'HomeController@contact')->name('contact');
 Route::get('/search', 'HomeController@search')->name('search');
 Route::get('/tags/{word}', 'HomeController@searchByTags')->name('tags');
-Route::get('/setxml', 'HomeController@createSiteMap');
+Route::get('/sitemap', 'HomeController@createSiteMap');
 
 //Backend Routes
 Route::group(['prefix' => 'admin'], function () {
