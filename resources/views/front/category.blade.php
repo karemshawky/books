@@ -7,12 +7,12 @@
 		<div class="row">
 			<div class="heading-sub heading-sub2 text-center">
 				<h5><span> {{ $category->name }} </span></h5> 
+				<p> {!! $category->description !!} </p>
 			</div>
-
 			@foreach ($books as $book)
 			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-				<div class="product-item">
-					<div class="item-thumb"> <img width="150" height="200" src="{{ asset('uploads/book/' . $book->pic) }}" /> </div>
+				<div class="product-item all-books">
+					<div class="item-thumb"> <img width="200" height="250" src="{{ asset('uploads/book/' . $book->pic) }}" /> </div>
 					<div class="product-info">
 						<h3 class="product-title"><a href="{{ route('books.slug',$book->slug) }}"> {{ $book->title }} </a></h3>
 						<div class="author">

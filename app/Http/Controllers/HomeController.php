@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use SEOMeta;
-use OpenGraph;
-//use Twitter;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
 use App\Book;
 use App\Author;
 use App\Category;
 use Illuminate\Http\Request;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+use Spatie\SchemaOrg\Schema;
+use SEOMeta;
+use OpenGraph;
+//use Twitter;
 
 class HomeController extends Controller
 {
@@ -22,6 +23,9 @@ class HomeController extends Controller
         OpenGraph::addProperty('locale', 'ar-AR');
         OpenGraph::addImage(route('home') . '/uploads/site-cover.png');
         OpenGraph::setUrl(url()->current());
+
+        $siteSettings = \App\Setting::first();
+        view()->share('siteSettings',$siteSettings);
     }
 
     /**
@@ -54,8 +58,8 @@ class HomeController extends Controller
     {
         $book = Book::with('authors', 'categories', 'tags')->whereSlug($book)->firstOrFail();
 
-        $categoryId = $book->categories->first()->id;
-        $relatedBooks = Category::findOrFail($categoryId)->books->take(4)->except($book->id);
+        $category = $book->categories->first();
+        $relatedBooks = Category::findOrFail($category->id)->books->take(4)->except($book->id);
         $metaDescription = removeStripTagsAndDecode($book->description);
 
         SEOMeta::setTitle($book->title);
@@ -66,6 +70,17 @@ class HomeController extends Controller
         OpenGraph::setDescription($metaDescription);
         OpenGraph::addImage(route('home') . '/uploads/book/' . $book->pic);
 
+        echo Schema::book()->name($book->title)
+                           ->breadcrumb('Book > '. $category->name)
+                           ->author(['@type' => 'person', 'name' => $book->authors[0]->name])
+                           ->workExample(['@type'  => 'Book',
+                                          'bookFormat' => 'https://schema.org/EBook',
+                                          'image'  => route('home') . '/uploads/book/' . $book->pic,
+                                          'inLanguage' => 'Arabic',
+                                          'name' => 'PDF of ' . $book->title,
+                                          'fileFormat' => 'application/pdf',
+                                          ]);
+        
         return view('front.single', compact('book', 'relatedBooks'));
     }
 
@@ -93,7 +108,7 @@ class HomeController extends Controller
         $categoryId = $book->categories->first()->id;
         $relatedBooks = Category::findOrFail($categoryId)->books->take(4)->except($book->id);
         $metaDescription = removeStripTagsAndDecode($book->description);
-
+        
         SEOMeta::setTitle($book->title);
         SEOMeta::setDescription($metaDescription);
         SEOMeta::addKeyword(array_pluck($book->tags, 'name'));
@@ -102,6 +117,17 @@ class HomeController extends Controller
         OpenGraph::setDescription($metaDescription);
         OpenGraph::addImage(route('home') . '/uploads/book/' . $book->pic);
 
+        echo Schema::book()->name($book->title)
+                           ->breadcrumb('Book > '. $category->name)
+                           ->author(['@type' => 'person', 'name' => $book->authors[0]->name])
+                           ->workExample(['@type'  => 'Book',
+                                          'bookFormat' => 'https://schema.org/EBook',
+                                          'image'  => route('home') . '/uploads/book/' . $book->pic,
+                                          'inLanguage' => 'Arabic',
+                                          'name' => 'PDF of ' . $book->title,
+                                          'fileFormat' => 'application/pdf',
+                                          ]);
+                                          
         return view('front.read', compact('book', 'relatedBooks'));
     }
 
@@ -158,6 +184,14 @@ class HomeController extends Controller
     {
         $category = Category::whereSlug($category)->firstOrFail();
         $books = $category->books()->with('authors')->paginate(20);
+        $metaDescription = removeStripTagsAndDecode($category->description);
+
+        SEOMeta::setTitle($category->name);
+        SEOMeta::setDescription($metaDescription);
+        SEOMeta::addMeta('topic', $category->name);
+        OpenGraph::setTitle($category->name);
+        OpenGraph::setDescription($metaDescription);
+
         return view('front.category', compact('category', 'books'));
     }
 
@@ -174,8 +208,8 @@ class HomeController extends Controller
 
         $books = Book::with('authors')->where('title', 'like', '%' . $word . '%')
                             ->orWhereHas('tags', function ($query) use ($word) {
-                                return $query->where('name', $word);
-                            })->whereStatus(1)
+                                return $query->where('name', $word)->orWhere('name',word_rev($word));
+                          })->whereStatus(1)
                             ->latest('updated_at')
                             ->paginate(20)
                             ->appends($request->except('page'));
@@ -196,8 +230,8 @@ class HomeController extends Controller
         $word = $request->word;
 
         $books = Book::with('authors')->WhereHas('tags', function ($query) use ($word) {
-            return $query->where('name', $word);
-        })->whereStatus(1)
+                                return $query->where('name', $word);
+                          })->whereStatus(1)
                             ->latest('updated_at')
                             ->paginate(20)
                             ->appends($request->except('page'));
@@ -241,4 +275,5 @@ class HomeController extends Controller
 
         $sitemap->writeToFile(public_path('sitemap.xml'));
     }
+
 }

@@ -87,13 +87,14 @@ class AuthorController extends Controller
 
         $request->validate([
             'name'  => 'required|string|unique:authors',
+            'slug'  => 'required|string',
             'about' => 'nullable|string',
             'pic'   => 'nullable|image|max:4000',
         ]);
 
         $author = Author::create([
             'name'    => $request->name,
-            'slug'    => make_slug($request->name, '-'),
+            'slug'    => make_slug($request->slug, '-'),
             'about'   => $request->about,
             'pic'     => 'no-image.png',
             'user_id' => auth()->id(),
@@ -145,13 +146,14 @@ class AuthorController extends Controller
     {
         $request->validate([
             'name'  => 'required|string|unique:authors,name,' . $author->id,
+            'slug'  => 'required|string',
             'about' => 'nullable|string',
             'pic'   => 'nullable|image|max:4000',
         ]);
 
         $author->update([
             'name'   => $request->name,
-            'slug'   => make_slug($request->name, '-'),
+            'slug'   => make_slug($request->slug, '-'),
             'about'  => $request->about,
             'status' => $request->status
         ]);

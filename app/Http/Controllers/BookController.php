@@ -78,7 +78,7 @@ class BookController extends Controller
         $tags = Tag::all();
         $authors = Author::all();
         $categories = Category::all();
-        return view('backend.book.create', compact('tags', 'authors', 'categories'));
+        return view('backend.book.create', compact('tags','authors', 'categories'));
     }
 
     /**
@@ -92,6 +92,7 @@ class BookController extends Controller
         $request->validate([
             'title'       => 'required|string|unique:books',
             'file'        => 'required',
+            'slug'        => 'required',
             'description' => 'nullable|string',
             'pic'         => 'nullable|image|max:4000',
             'category_id' => 'required',
@@ -100,7 +101,7 @@ class BookController extends Controller
 
         $book = Book::create([
             'title'       => $request->title,
-            'slug'        => make_slug($request->title, '-'),
+            'slug'        => make_slug($request->slug, '-'),
             'file'        => $request->file,
             'description' => $request->description,
             'status'      => $request->status,
@@ -150,7 +151,7 @@ class BookController extends Controller
         $bookAuthors = $book->authors->pluck('id')->all();
         $bookCategories = $book->categories->pluck('id')->all();
 
-        return view('backend.book.edit', compact('book', 'tags', 'authors', 'categories', 'bookTags', 'bookAuthors', 'bookCategories'));
+        return view('backend.book.edit', compact('book', 'tags','authors', 'categories', 'bookTags', 'bookAuthors', 'bookCategories'));
     }
 
     /**
@@ -165,6 +166,7 @@ class BookController extends Controller
         $request->validate([
             'title'       => 'required|string|unique:books,title,' . $book->id,
             'file'        => 'required',
+            'slug'        => 'required',
             'description' => 'nullable|string',
             'pic'         => 'nullable|image|max:4000',
             'category_id' => 'required',
@@ -173,7 +175,7 @@ class BookController extends Controller
 
         $book->update([
             'title'       => $request->title,
-            'slug'        => make_slug($request->title, '-'),
+            'slug'        => make_slug($request->slug, '-'),
             'file'        => $request->file,
             'description' => $request->description,
             'status'      => $request->status

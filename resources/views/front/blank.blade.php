@@ -95,7 +95,7 @@
                                         </li>
                                         <li class="dropdown mmenu">
                                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">الأقسام</a>
-                                            <ul class="mega-menu dropdown-menu" role="menu">
+                                            <ul class="mega-menu dropdown-menu the-menu" role="menu">
                                                 <h3 class="text-center"></h3>
                                                 @foreach (siteCategories() as $category)
                                                     <li>
@@ -150,16 +150,13 @@
                             </li>
                         </ul>
                         <div class="space20"></div>
-                        @php
-                            $allMetaPage = siteSettings();
-                        @endphp
                         <ul class="f-social">
-                            <li><a href="{{ $allMetaPage->facebook }}" target="_blank" class="fa fa-facebook"></a></li>
-                            <li><a href="{{ $allMetaPage->twitter }}" target="_blank" class="fa fa-twitter"></a></li>
+                            <li><a href="{{ $siteSettings->facebook }}" target="_blank" class="fa fa-facebook"></a></li>
+                            <li><a href="{{ $siteSettings->twitter }}" target="_blank" class="fa fa-twitter"></a></li>
                             <!-- <li><a href="https://feedburner.google.com/" class="fa fa-rss"></a></li> -->
-                            <li><a href="mailto:{{ $allMetaPage->mail }}" target="_blank" class="fa fa-envelope"></a></li>
-                            <li><a href="{{ $allMetaPage->instagram }}" target="_blank" class="fa fa-instagram"></a></li>
-                            <li><a href="{{ $allMetaPage->pinterest }}" target="_blank" class="fa fa-pinterest"></a></li>
+                            <li><a href="mailto:{{ $siteSettings->mail }}" target="_blank" class="fa fa-envelope"></a></li>
+                            <li><a href="{{ $siteSettings->instagram }}" target="_blank" class="fa fa-instagram"></a></li>
+                            <li><a href="{{ $siteSettings->pinterest }}" target="_blank" class="fa fa-pinterest"></a></li>
                         </ul>
                         <div class="space10"></div>
                         <p>  جميع الحقوق محفوظة 2019 © </p><p>برمجة و تطوير <a href="javascript:;">Karem Shawky</a> </p>

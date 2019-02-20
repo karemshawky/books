@@ -49,7 +49,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'slug' => 'required'
         ]);
 
         $category = Category::whereName($request->name)->exists();
@@ -62,7 +63,11 @@ class CategoryController extends Controller
             ]);
         }
 
-        Category::create(['name' => $request->name, 'slug' => make_slug($request->name, '-'),'status' => $request->status]);
+        Category::create([ 'name' => $request->name,
+                           'slug' => make_slug($request->slug, '-'),
+                           'description' => $request->description,
+                           'status' => $request->status
+                         ]);
 
         return back()->with([
             'url'     => 'cats.index',
@@ -93,12 +98,14 @@ class CategoryController extends Controller
     public function update(Request $request, $category)
     {
         $request->validate([
-            'name' => 'required|string|unique:categories,name,' . $category
+            'name' => 'required|string|unique:categories,name,' . $category,
+            'slug' => 'required'
         ]);
 
         Category::whereId($category)->first()->update([
             'name'   => $request->name,
-            'slug'   => make_slug($request->name, '-'),
+            'slug'   => make_slug($request->slug, '-'),
+            'description' => $request->description,
             'status' => $request->status
         ]);
         

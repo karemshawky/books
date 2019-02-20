@@ -30,6 +30,11 @@
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <input type="text" name="name" value="{{ old('name',$author->name) }}" class="form-control m-input" required="required" placeholder="أدخل أسم المؤلف"> </div>
             </div>
+            <div class="form-group m-form__group row">
+                <label class="col-form-label col-lg-3 col-sm-12">شهرة المؤلف </label>
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <input type="text" name="slug" value="{{ old('slug',$author->slug) }}" class="form-control m-input" required="required" placeholder="أدخل شهرة المؤلف"> </div>
+            </div>
 
             <div class="form-group m-form__group row">
                 <label class="col-form-label col-lg-3 col-sm-12">معلومات عن المؤلف</label>

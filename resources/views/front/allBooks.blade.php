@@ -12,8 +12,8 @@
 
 			@foreach ($books as $book)
 			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-				<div class="product-item">
-					<div class="item-thumb"> <img width="150" height="200" src="{{ asset('uploads/book/' . $book->pic) }}" /> </div>
+				<div class="product-item all-books">
+					<div class="item-thumb"> <img width="200" height="250" src="{{ asset('uploads/book/' . $book->pic) }}" /> </div>
 					<div class="product-info">
 						<h3 class="product-title">
 							<a href="{{ route( (Request::segment(1) == 'books') ? 'books.slug' : 'reads.slug', $book->slug) }}"> 

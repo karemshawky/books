@@ -12,7 +12,7 @@
 					<div class="media-list">
 						<div class="media">
 							<div class="media-body"> 
-								<img src="{{ asset('uploads/book/' . $book->pic ) }}" class="media-pic" width="200" height="150">
+								<img src="{{ asset('uploads/book/' . $book->pic ) }}" class="media-pic read-pic" >
 							</div>
 						</div>
 						<div class="media">
@@ -41,7 +41,9 @@
 							@endforeach 
 						</div>
 					</div>
-					<p> {!! $book->description !!} </p>
+					<div class="row">
+						 {!! $book->description !!} 
+					</div>
 				</div>
 				<div class="btn-dwn space50">
 					<a href="{{ route('reads.slug', $book->slug) }}" class="btn btn-danger btn-lg" role="button"> اقرأ أون لاين </a>

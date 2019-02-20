@@ -16,6 +16,7 @@
         "laravel/tinker": "^1.0",
         "spatie/laravel-permission": "^2.27",
         "spatie/laravel-sitemap": "^5.2",
+        "spatie/schema-org": "^2.1",
         "unisharp/laravel-filemanager": "dev-master",
         "yajra/laravel-datatables-oracle": "~8.0"
     },

@@ -63,12 +63,10 @@
 					<tr>
 						<td class="w-25 p-3"> <h6> E-mail </h6> </td>
 						<td class="w-75 p-3"> <h5> {{ $setting->mail }} </h5> </td>
-					</tr>
-					
+					</tr>		
 				</tbody>
 			</table>
 		</div>
-
 	</div>
 	<!--end::Portlet-->
 @endsection

@@ -30,7 +30,12 @@
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <input type="text" name="title" value="{{ old('title',$book->title) }}" class="form-control m-input" required="required" placeholder="أدخل أسم الكتاب"> </div>
                 </div>
-    
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">شهرة الكتاب </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <input type="text" name="slug" value="{{ old('slug',$book->slug) }}" class="form-control m-input" required="required" placeholder=" أدخل شهرة الكتاب">
+                    </div>
+                </div>
                 <div class="form-group m-form__group row">
                     <label class="col-form-label col-lg-3 col-sm-12">ملف الكتاب </label>
                     <div class="col-lg-7 col-md-7 col-sm-12">

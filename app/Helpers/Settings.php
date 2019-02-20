@@ -4,10 +4,6 @@ function siteCategories()
 {
     return \App\Category::all();
 }
-function siteSettings()
-{
-    return \App\Setting::first();
-}
 function removeStripTagsAndDecode($words)
 {
     return strip_tags(html_entity_decode($words));
@@ -33,4 +29,12 @@ function make_slug($string, $separator = '-')
     $string = preg_replace("/[\s_]/", $separator, $string);
 
     return $string;
+}
+function word_rev($str)
+{
+    $r = '';
+    for ($i = mb_strlen($str); $i>=0; $i--) {
+        $r .= mb_substr($str, $i, 1);
+    }
+    return $r;
 }

@@ -13,7 +13,7 @@
 					<div class="media-list">
 						<div class="media">
 							<div class="media-body"> 
-							<img width="150" height="200" src="{{ asset('uploads/author/' . $author->pic ) }}" class="media-pic">
+							<img src="{{ asset('uploads/author/' . $author->pic ) }}" class="media-pic" alt="{{ $author->name }}">
 							</div>
 						</div>
 						<div class="media">
@@ -32,7 +32,9 @@
 					<div class="ps-header">
 						<h2 class="novel-title space30"> نبذة عن المؤلف </h2>
 					</div>
-					<p> {!! $author->about !!} </p>
+					<div class="row"> 
+						{!! $author->about !!} 
+					</div>
 				</div>
 				<div class="sep space30"></div>
 				<div class="related row">
