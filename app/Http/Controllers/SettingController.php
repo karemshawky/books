@@ -16,7 +16,7 @@ class SettingController extends Controller
     public function index(Setting $setting)
     {
         $setting = Setting::first();
-        return view('backend.setting.read',compact('setting'));
+        return view('backend.setting.read', compact('setting'));
     }
 
     /**
@@ -27,7 +27,7 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
-        return view('backend.setting.edit',compact('setting'));
+        return view('backend.setting.edit', compact('setting'));
     }
 
     /**
@@ -58,5 +58,4 @@ class SettingController extends Controller
             'message' => 'تم تعديل بيانات الموقع بنجاح '
         ]);
     }
-
 }

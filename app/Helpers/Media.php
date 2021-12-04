@@ -5,9 +5,9 @@ namespace App\Helpers;
 use Image;
 use Illuminate\Http\Request;
 
-class AllUploads
+class Media
 {
-    
+
     /**
      * Upload one image
      *
@@ -20,11 +20,11 @@ class AllUploads
      */
     public function uploadImage(Request $request, string $photoName = null, string $path = null, int $width = null, int $height = null)
     {
-        if ($request->hasFile($photoName)) 
+        if ($request->hasFile($photoName))
         {
             $imagename = date('Y-m-d') . str_random(10) . '.' . $request->$photoName->getClientOriginalExtension();
             $img = Image::make($request->$photoName->getRealPath());
-            if ($width || $height) 
+            if ($width || $height)
             {
                 $img->resize($width, $height);
             }
@@ -47,11 +47,11 @@ class AllUploads
     {
         if ($request->filled($photoName))
          {
-            foreach ($request->file($photoName) as $key => $photo) 
+            foreach ($request->file($photoName) as $key => $photo)
             {
                 $imagename = date('Y-m-d') . str_random(10) . '.' . $photo->getClientOriginalExtension();
                 $img = Image::make($photo->getRealPath());
-                if ($width || $height) 
+                if ($width || $height)
                 {
                     $img->resize($width, $height);
                 }
@@ -72,9 +72,9 @@ class AllUploads
      */
     public function uploadFiles(Request $request, string $fileName = null, string $path = null)
     {
-        if ($request->hasFile($fileName)) 
+        if ($request->hasFile($fileName))
         {
-            foreach ($request->file($fileName) as $key => $file) 
+            foreach ($request->file($fileName) as $key => $file)
             {
                 $docName = date('Y-m-d') . str_random(10) . '.' . $file->getClientOriginalExtension();
                 $file->storeAs($path, $docName);

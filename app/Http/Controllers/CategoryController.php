@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
-use Yajra\Datatables\Datatables;
 
 class CategoryController extends Controller
 {
@@ -26,8 +25,10 @@ class CategoryController extends Controller
     public function getData()
     {
         return datatables(Category::all())->addColumn('action', 'backend.category.action')
-                                          ->editColumn('status', function (Category $category) { return ( $category->status == 1 ) ? 'نشط' : 'غير نشط'; })
-                                          ->toJson();
+            ->editColumn('status', function (Category $category) {
+                return ($category->status == 1) ? 'نشط' : 'غير نشط';
+            })
+            ->toJson();
     }
 
     /**
@@ -63,11 +64,12 @@ class CategoryController extends Controller
             ]);
         }
 
-        Category::create([ 'name' => $request->name,
-                           'slug' => make_slug($request->slug, '-'),
-                           'description' => $request->description,
-                           'status' => $request->status
-                         ]);
+        Category::create([
+            'name' => $request->name,
+            'slug' => make_slug($request->slug, '-'),
+            'description' => $request->description,
+            'status' => $request->status
+        ]);
 
         return back()->with([
             'url'     => 'cats.index',
@@ -108,13 +110,12 @@ class CategoryController extends Controller
             'description' => $request->description,
             'status' => $request->status
         ]);
-        
+
         return back()->with([
             'url'     => 'cats.index',
             'type'    => 'success',
             'message' => 'تم تعديل القسم بنجاح '
         ]);
-
     }
 
     /**

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use File;
 use App\Author;
 use Illuminate\Http\Request;
-use App\Helpers\AllUploads as Upload;
-use File;
+use App\Helpers\Media;
 
 class AuthorController extends Controller
 {
@@ -29,11 +29,10 @@ class AuthorController extends Controller
      * @param Upload $upload
      * @return void
      */
-    public function __construct(Upload $upload)
+    public function __construct(Media $upload)
     {
         $this->upload = $upload;
         $this->picPath = public_path('uploads/author/');
-
     }
 
     /**
@@ -54,16 +53,16 @@ class AuthorController extends Controller
     public function getAuthors(Author $author)
     {
         return datatables(Author::with('user')->get())->addColumn('action', 'backend.author.action')
-                                                      ->editColumn('user_id', function ($author) {
-                                                          return $author->user->name;
-                                                      })
-                                                      ->editColumn('about', function ($author) {
-                                                          return removeStripTagsAndDecode(str_limit($author->about, 50));
-                                                      })
-                                                      ->editColumn('status', function ($author) {
-                                                          return ($author->status == 1) ? 'نشط' : 'غير نشط' ;
-                                                      })
-                                                      ->toJson();
+            ->editColumn('user_id', function ($author) {
+                return $author->user->name;
+            })
+            ->editColumn('about', function ($author) {
+                return removeStripTagsAndDecode(str_limit($author->about, 50));
+            })
+            ->editColumn('status', function ($author) {
+                return ($author->status == 1) ? 'نشط' : 'غير نشط';
+            })
+            ->toJson();
     }
 
     /**
@@ -84,7 +83,6 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name'  => 'required|string|unique:authors',
             'slug'  => 'required|string',
@@ -102,7 +100,7 @@ class AuthorController extends Controller
         ]);
 
         if ($request->hasFile('pic')) {
-            $picName = $this->upload->uploadImage($request,'pic',$this->picPath,640,480);
+            $picName = $this->upload->uploadImage($request, 'pic', $this->picPath, 640, 480);
             $author->update(['pic' => $picName]);
         }
 
@@ -159,10 +157,10 @@ class AuthorController extends Controller
         ]);
 
         if ($request->hasFile('pic')) {
-            if(File::exists($this->picPath . $author->pic) && $author->pic != 'no-image.png') {
+            if (File::exists($this->picPath . $author->pic) && $author->pic != 'no-image.png') {
                 File::delete($this->picPath . $author->pic);
             }
-            $picName = $this->upload->uploadImage($request,'pic',$this->picPath,640,480);
+            $picName = $this->upload->uploadImage($request, 'pic', $this->picPath, 640, 480);
             $author->update(['pic' => $picName]);
         }
 
@@ -181,7 +179,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        if(File::exists($this->picPath . $author->pic) && $author->pic != 'no-image.png') {
+        if (File::exists($this->picPath . $author->pic) && $author->pic != 'no-image.png') {
             File::delete($this->picPath . $author->pic);
         }
 

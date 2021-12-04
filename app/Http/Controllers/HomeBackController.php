@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Author;
-use App\Book;
-use App\Category;
-use App\User;
+use App\{Book, User, Author, Category};
 
 class HomeBackController extends Controller
 {
@@ -23,6 +20,6 @@ class HomeBackController extends Controller
             'categories' => Category::count()
         ];
 
-        return view('backend.main',compact('counts'));
+        return view('backend.main', compact('counts'));
     }
 }

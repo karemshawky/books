@@ -2,31 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Book;
-use App\Author;
-use App\Category;
+use App\Traits\MetaTags;
 use Illuminate\Http\Request;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
-use Spatie\SchemaOrg\Schema;
-use SEOMeta;
-use OpenGraph;
-//use Twitter;
+use App\{Book, Author, Category};
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Spatie\Sitemap\{Sitemap, Tags\Url};
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        SEOMeta::setCanonical(url()->current());
-        SEOMeta::addMeta('language', 'AR');
-        SEOMeta::addMeta('url', url()->current());
-        OpenGraph::addProperty('locale', 'ar-AR');
-        OpenGraph::addImage(route('home') . '/uploads/site-cover.png');
-        OpenGraph::setUrl(url()->current());
-
-        $siteSettings = \App\Setting::first();
-        view()->share('siteSettings',$siteSettings);
-    }
+    use MetaTags;
 
     /**
      * Show the application index page.
@@ -43,9 +27,9 @@ class HomeController extends Controller
         $data['humanDevelopment'] = $book->getBooksFromCategory(3, 5);
         $data['translatedStory'] = $book->getBooksFromCategory(4, 12);
 
-        $moreCategory = Category::findOrFail([1, 2, 3, 4]);
+        $this->seoIndex();
 
-        return view('front.index', compact('data', 'moreCategory'));
+        return view('front.index', compact('data'));
     }
 
     /**
@@ -62,25 +46,8 @@ class HomeController extends Controller
         $relatedBooks = Category::findOrFail($category->id)->books->take(4)->except($book->id);
         $metaDescription = removeStripTagsAndDecode($book->description);
 
-        SEOMeta::setTitle($book->title);
-        SEOMeta::setDescription($metaDescription);
-        SEOMeta::addKeyword(array_pluck($book->tags, 'name'));
-        SEOMeta::addMeta('topic', $book->title);
-        OpenGraph::setTitle($book->title);
-        OpenGraph::setDescription($metaDescription);
-        OpenGraph::addImage(route('home') . '/uploads/book/' . $book->pic);
+        $this->seoSinglePage($book, $metaDescription, $category);
 
-        echo Schema::book()->name($book->title)
-                           ->breadcrumb('Book > '. $category->name)
-                           ->author(['@type' => 'person', 'name' => $book->authors[0]->name])
-                           ->workExample(['@type'  => 'Book',
-                                          'bookFormat' => 'https://schema.org/EBook',
-                                          'image'  => route('home') . '/uploads/book/' . $book->pic,
-                                          'inLanguage' => 'Arabic',
-                                          'name' => 'PDF of ' . $book->title,
-                                          'fileFormat' => 'application/pdf',
-                                          ]);
-        
         return view('front.single', compact('book', 'relatedBooks'));
     }
 
@@ -91,7 +58,8 @@ class HomeController extends Controller
      */
     public function getAllBooks()
     {
-        $books = Book::with('authors')->latest('updated_at')->paginate(20);
+        $books = Book::with('authors')->latest()->paginate(20);
+
         return view('front.allBooks', compact('books'));
     }
 
@@ -105,29 +73,12 @@ class HomeController extends Controller
     {
         $book = Book::with('tags')->whereSlug($book)->firstOrFail();
 
-        $categoryId = $book->categories->first()->id;
-        $relatedBooks = Category::findOrFail($categoryId)->books->take(4)->except($book->id);
+        $category = $book->categories->firstOrFail();
+        $relatedBooks = Category::findOrFail($category->id)->books->take(4)->except($book->id);
         $metaDescription = removeStripTagsAndDecode($book->description);
-        
-        SEOMeta::setTitle($book->title);
-        SEOMeta::setDescription($metaDescription);
-        SEOMeta::addKeyword(array_pluck($book->tags, 'name'));
-        SEOMeta::addMeta('topic', $book->title);
-        OpenGraph::setTitle($book->title);
-        OpenGraph::setDescription($metaDescription);
-        OpenGraph::addImage(route('home') . '/uploads/book/' . $book->pic);
 
-        echo Schema::book()->name($book->title)
-                           ->breadcrumb('Book > '. $category->name)
-                           ->author(['@type' => 'person', 'name' => $book->authors[0]->name])
-                           ->workExample(['@type'  => 'Book',
-                                          'bookFormat' => 'https://schema.org/EBook',
-                                          'image'  => route('home') . '/uploads/book/' . $book->pic,
-                                          'inLanguage' => 'Arabic',
-                                          'name' => 'PDF of ' . $book->title,
-                                          'fileFormat' => 'application/pdf',
-                                          ]);
-                                          
+        $this->seoSinglePage($book, $metaDescription, $category);
+
         return view('front.read', compact('book', 'relatedBooks'));
     }
 
@@ -143,22 +94,17 @@ class HomeController extends Controller
     }
 
     /**
-    * Author page.
-    *
-    * @param  $author
-    * @return \Illuminate\Http\Response
-    */
+     * Author page.
+     *
+     * @param  $author
+     * @return \Illuminate\Http\Response
+     */
     public function getAuthor($author)
     {
         $author = Author::with('books')->whereSlug($author)->firstOrFail();
         $metaDescription = removeStripTagsAndDecode($author->description);
 
-        SEOMeta::setTitle($author->name);
-        SEOMeta::setDescription($metaDescription);
-        SEOMeta::addMeta('topic', $author->name);
-        OpenGraph::setTitle($author->name);
-        OpenGraph::setDescription($metaDescription);
-        OpenGraph::addImage(route('home') . '/uploads/author/' . $author->pic);
+        $this->seoAuthorOrCategory($author, $metaDescription);
 
         return view('front.author', compact('author'));
     }
@@ -186,11 +132,7 @@ class HomeController extends Controller
         $books = $category->books()->with('authors')->paginate(20);
         $metaDescription = removeStripTagsAndDecode($category->description);
 
-        SEOMeta::setTitle($category->name);
-        SEOMeta::setDescription($metaDescription);
-        SEOMeta::addMeta('topic', $category->name);
-        OpenGraph::setTitle($category->name);
-        OpenGraph::setDescription($metaDescription);
+        $this->seoAuthorOrCategory($category, $metaDescription);
 
         return view('front.category', compact('category', 'books'));
     }
@@ -207,12 +149,12 @@ class HomeController extends Controller
         $word = $request->word;
 
         $books = Book::with('authors')->where('title', 'like', '%' . $word . '%')
-                            ->orWhereHas('tags', function ($query) use ($word) {
-                                return $query->where('name', $word)->orWhere('name',word_rev($word));
-                          })->whereStatus(1)
-                            ->latest('updated_at')
-                            ->paginate(20)
-                            ->appends($request->except('page'));
+            ->orWhereHas('tags', function ($query) use ($word) {
+                return $query->where('name', $word)->orWhere('name', word_rev($word));
+            })->whereStatus(1)
+            ->latest('updated_at')
+            ->paginate(20)
+            ->appends($request->except('page'));
 
         SEOMeta::setTitle($word);
 
@@ -230,11 +172,11 @@ class HomeController extends Controller
         $word = $request->word;
 
         $books = Book::with('authors')->WhereHas('tags', function ($query) use ($word) {
-                                return $query->where('name', $word);
-                          })->whereStatus(1)
-                            ->latest('updated_at')
-                            ->paginate(20)
-                            ->appends($request->except('page'));
+            return $query->where('name', $word);
+        })->whereStatus(1)
+            ->latest('updated_at')
+            ->paginate(20)
+            ->appends($request->except('page'));
 
         SEOMeta::setTitle($word);
 
@@ -256,10 +198,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function createSiteMap() 
+    public function createSiteMap()
     {
         $sitemap = Sitemap::create()->add(Url::create('/'))
-                                    ->add(Url::create('/contactus'));
+            ->add(Url::create('/contactus'));
 
         Book::all()->each(function (Book $book) use ($sitemap) {
             $sitemap->add(Url::create("/books/{$book->slug}"));
@@ -268,12 +210,11 @@ class HomeController extends Controller
         Category::all()->each(function (Category $category) use ($sitemap) {
             $sitemap->add(Url::create("/cats/{$category->slug}"));
         });
-        
+
         Author::all()->each(function (Author $author) use ($sitemap) {
             $sitemap->add(Url::create("/authors/{$author->slug}"));
         });
 
         $sitemap->writeToFile(public_path('sitemap.xml'));
     }
-
 }

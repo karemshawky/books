@@ -37,17 +37,17 @@ class Book extends Model
     {
         return $this->whereStatus(1)->latest('updated_at')->take(6)->get();
     }
-    
+
     /**
      * Get number of books from category.
      *
      * @param integer $cat Category ID
-     * @param integer $take Limit 
+     * @param integer $take Limit
      * @return void
      */
     public function getBooksFromCategory(int $cat, int $take)
     {
-        return $this->whereHas('categories', function ($book) use($cat, $take) {
+        return $this->whereHas('categories', function ($book) use($cat) {
                                 $book->whereCategoryId($cat);
                             })->whereStatus(1)->latest('updated_at')->take($take)->get();
     }

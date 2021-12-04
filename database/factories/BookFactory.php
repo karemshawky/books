@@ -11,6 +11,6 @@ $factory->define(App\Book::class, function (Faker $faker) {
         'file'        => '1iTNlgqlY4xJXKQrbjRhJ9XuT6_ZdUApR',
         'status'      => 1,
         'downloaded'  => null,
-        'user_id'     => 1,
+        'user_id'     => 3,
     ];
 });
