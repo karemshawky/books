@@ -1,7 +1,7 @@
 @extends('backend.blank')
 @section('content')
 
-    <div class="m-content">
+<div class="m-content">
     <!--begin::Portlet-->
     <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
         <div class="m-portlet__head">
@@ -20,62 +20,68 @@
             </div>
         </div>
 
-    <!--begin::Form-->
-    <form action="{{ route('authors.store') }}" method="POST" enctype="multipart/form-data" class="m-form m-form--fit m-form--label-align-right">
-        @csrf
-        <div class="m-portlet__body">
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">أسم المؤلف </label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <input type="text" name="name" value="{{ old('name') }}" class="form-control m-input" required="required" placeholder="أدخل أسم المؤلف"> </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">شهرة المؤلف </label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <input type="text" name="slug" value="{{ old('slug') }}" class="form-control m-input" required="required" placeholder="أدخل شهرة المؤلف"> </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">معلومات عن المؤلف</label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <textarea name="about" class="form-control my-editor">{!! old('about') !!}</textarea>
-
+        <!--begin::Form-->
+        <form action="{{ route('authors.store') }}" method="POST" enctype="multipart/form-data"
+            class="m-form m-form--fit m-form--label-align-right">
+            @csrf
+            <div class="m-portlet__body">
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">أسم المؤلف </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <input type="text" name="name" value="{{ old('name') }}" class="form-control m-input"
+                            required="required" placeholder="أدخل أسم المؤلف">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group m-form__group row">
-            <label class="col-form-label col-lg-3 col-sm-12"> الحالة </label>
-            <div class="col-lg-4 col-md-9 col-sm-12">
-                <select class="form-control" name="status">
-                    <option value="1">نشط</option>
-                    <option value="0">غير نشط</option>
-                </select>
-            </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">صورة المؤلف </label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <input type="file" name="pic" class="form-control m-input"> </div>
-            </div>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">شهرة المؤلف </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <input type="text" name="slug" value="{{ old('slug') }}" class="form-control m-input"
+                            required="required" placeholder="أدخل شهرة المؤلف">
+                    </div>
+                </div>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">معلومات عن المؤلف</label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <textarea name="about" class="form-control my-editor">{!! old('about') !!}</textarea>
 
-        </div>
-        <div class="m-portlet__foot m-portlet__foot--fit">
-            <div class="m-form__actions m-form__actions">
-                <div class="row">
-                    <div class="col-lg-9 ml-lg-auto">
-                        <button type="submit" class="btn btn-brand">أضف</button>
-                        <a href="{{ route('authors.index') }}" class="btn btn-secondary">رجوع</a>
+                    </div>
+                </div>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12"> الحالة </label>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <select class="form-control" name="status">
+                            <option value="1">نشط</option>
+                            <option value="0">غير نشط</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">صورة المؤلف </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <input type="file" name="pic" class="form-control m-input">
+                    </div>
+                </div>
+
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+                <div class="m-form__actions m-form__actions">
+                    <div class="row">
+                        <div class="col-lg-9 ml-lg-auto">
+                            <button type="submit" class="btn btn-brand">أضف</button>
+                            <a href="{{ route('authors.index') }}" class="btn btn-secondary">رجوع</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-    <!--end::Form-->
-</div>
-<!--end::Portlet-->
-@endsection
-@push('js')
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>
-  var editor_config = {
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Portlet-->
+    @endsection
+    @push('js')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        var editor_config = {
     path_absolute : "/",
     selector: "textarea.my-editor",
     plugins: [
@@ -109,5 +115,5 @@
   };
 
   tinymce.init(editor_config);
-</script>
-@endpush
+    </script>
+    @endpush

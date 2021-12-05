@@ -1,7 +1,7 @@
 @extends('backend.blank')
 @section('content')
 
-    <div class="m-content">
+<div class="m-content">
     <!--begin::Portlet-->
     <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
         <div class="m-portlet__head">
@@ -20,98 +20,107 @@
             </div>
         </div>
 
-    <!--begin::Form-->
-    <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data" class="m-form m-form--fit m-form--label-align-right">
-        @csrf
-        <div class="m-portlet__body">
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">أسم الكتاب </label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <input type="text" name="title" value="{{ old('title') }}" class="form-control m-input" required="required" placeholder="أدخل أسم الكتاب"> </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">شهرة الكتاب </label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <input type="text" name="slug" value="{{ old('slug') }}" class="form-control m-input" required="required" placeholder="أدخل شهرة الكتاب">       
-                 </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">ملف الكتاب </label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <input type="text" name="file" value="{{ old('file') }}" class="form-control m-input" required="required" placeholder="أدخل عنوان الملف"> </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">القسم </label>
-                <div class="col-lg-4 col-md-9 col-sm-12">
-                    <select class="form-control m-select2" id="m_select2_1" name="category_id[]" multiple="multiple">
-                        @foreach ($categories as $category)
+        <!--begin::Form-->
+        <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data"
+            class="m-form m-form--fit m-form--label-align-right">
+            @csrf
+            <div class="m-portlet__body">
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">أسم الكتاب </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <input type="text" name="title" value="{{ old('title') }}" class="form-control m-input"
+                            required="required" placeholder="أدخل أسم الكتاب">
+                    </div>
+                </div>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">شهرة الكتاب </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <input type="text" name="slug" value="{{ old('slug') }}" class="form-control m-input"
+                            required="required" placeholder="أدخل شهرة الكتاب">
+                    </div>
+                </div>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">ملف الكتاب </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <input type="text" name="file" value="{{ old('file') }}" class="form-control m-input"
+                            required="required" placeholder="أدخل عنوان الملف">
+                    </div>
+                </div>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">القسم </label>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <select class="form-control m-select2" id="m_select2_1" name="category_id[]"
+                            multiple="multiple">
+                            @foreach ($categories as $category)
                             <option value="{{ $category->id }}"> {{ $category->name }} </option>
-                        @endforeach
-                    </select>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">المؤلف </label>
-                <div class="col-lg-4 col-md-9 col-sm-12">
-                    <select class="form-control m-select2" id="m_select2_2" name="author_id[]" multiple="multiple">
-                        @foreach ($authors as $author)
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">المؤلف </label>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <select class="form-control m-select2" id="m_select2_2" name="author_id[]" multiple="multiple">
+                            @foreach ($authors as $author)
                             <option value="{{ $author->id }}"> {{ $author->name }} </option>
-                        @endforeach
-                    </select>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">الكلمات المفتاحية </label>
-                <div class="col-lg-4 col-md-9 col-sm-12">
-                    <select class="form-control m-select2" id="m_select2_3" name="tag_id[]" multiple="multiple">
-                        @foreach ($tags as $tag)
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">الكلمات المفتاحية </label>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <select class="form-control m-select2" id="m_select2_3" name="tag_id[]" multiple="multiple">
+                            @foreach ($tags as $tag)
                             <option value="{{ $tag->id }}"> {{ $tag->name }} </option>
-                        @endforeach
-                    </select>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12"> الحالة </label>
-                <div class="col-lg-4 col-md-9 col-sm-12">
-                    <select class="form-control" name="status">
-                        <option value="1">نشط</option>
-                        <option value="0">غير نشط</option>
-                    </select>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12"> الحالة </label>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <select class="form-control" name="status">
+                            <option value="1">نشط</option>
+                            <option value="0">غير نشط</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12"> تفاصيل الكتاب </label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <textarea class="form-control my-editor" name="description">{!! old('description') !!}</textarea>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12"> تفاصيل الكتاب </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <textarea class="form-control my-editor"
+                            name="description">{!! old('description') !!}</textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-form-label col-lg-3 col-sm-12">غلاف الكتاب </label>
-                <div class="col-lg-7 col-md-7 col-sm-12">
-                    <input type="file" name="pic" class="form-control m-input"> </div>
-            </div>
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">غلاف الكتاب </label>
+                    <div class="col-lg-7 col-md-7 col-sm-12">
+                        <input type="file" name="pic" class="form-control m-input">
+                    </div>
+                </div>
 
-        </div>
-        <div class="m-portlet__foot m-portlet__foot--fit">
-            <div class="m-form__actions m-form__actions">
-                <div class="row">
-                    <div class="col-lg-9 ml-lg-auto">
-                        <button type="submit" class="btn btn-brand">أضف</button>
-                        <a href="{{ route('books.index') }}" class="btn btn-secondary">رجوع</a>
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+                <div class="m-form__actions m-form__actions">
+                    <div class="row">
+                        <div class="col-lg-9 ml-lg-auto">
+                            <button type="submit" class="btn btn-brand">أضف</button>
+                            <a href="{{ route('books.index') }}" class="btn btn-secondary">رجوع</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-    <!--end::Form-->
-</div>
-<!--end::Portlet-->
-@endsection
-@push('js')
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>
-  var editor_config = {
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Portlet-->
+    @endsection
+    @push('js')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        var editor_config = {
     path_absolute : "/",
     selector: "textarea.my-editor",
     plugins: [
@@ -145,5 +154,5 @@
   };
 
   tinymce.init(editor_config);
-</script>
-@endpush
+    </script>
+    @endpush

@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,15 +30,23 @@ Route::get('/sitemap', 'HomeController@createSiteMap')->name('sitemaps');
 
 //Backend Routes
 Route::group(['prefix' => 'admin'], function () {
+
     Auth::routes();
-    Route::get('/home', 'HomeBackController@index')->middleware(['auth', 'role:super|admin'])->name('backHome');
-    Route::resource('/cats', 'CategoryController')->middleware(['auth', 'role:super|admin']);
-    Route::get('get-all-categories', 'CategoryController@getData')->middleware(['auth', 'role:super|admin'])->name('cats.get');
-    Route::resource('/authors', 'AuthorController')->middleware(['auth', 'role:super|admin']);
-    Route::get('get-all-authors', 'AuthorController@getAuthors')->name('authors.get')->middleware(['auth', 'role:super|admin']);
-    Route::resource('/tags', 'TagController')->middleware(['auth', 'role:super|admin']);
-    Route::get('get-all-tags', 'TagController@getTags')->middleware(['auth', 'role:super|admin'])->name('tags.get');
-    Route::resource('/books', 'BookController')->middleware(['auth', 'role:super|admin']);
-    Route::get('get-all-books', 'BookController@getBooks')->middleware(['auth', 'role:super|admin'])->name('books.get');
-    Route::resource('/settings', 'SettingController')->middleware(['auth', 'role:super|admin'])->only(['index', 'edit', 'update']);
+
+    Route::get('/home', 'HomeBackController@index')->name('backHome');
+    Route::resource('/cats', 'CategoryController');
+
+    Route::get('get-all-categories', 'CategoryController@getData')->name('cats.get');
+    Route::resource('/authors', 'AuthorController');
+
+    Route::get('get-all-authors', 'AuthorController@getAuthors')->name('authors.get');
+    Route::resource('/tags', 'TagController');
+
+    Route::get('get-all-tags', 'TagController@getTags')->name('tags.get');
+    Route::resource('/books', 'BookController');
+
+    Route::get('get-all-books', 'BookController@getBooks')->name('books.get');
+    Route::resource('/settings', 'SettingController')->only(['index', 'edit', 'update']);
 });
+
+// middleware(['auth', 'role:super|admin'])->

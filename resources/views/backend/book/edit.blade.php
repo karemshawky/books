@@ -1,54 +1,62 @@
 @extends('backend.blank')
 @section('content')
 
-    <div class="m-content">
+<div class="m-content">
     <!--begin::Portlet-->
     <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
-    <div class="m-portlet__head">
-        <div class="m-portlet__head-caption">
-            <div class="m-portlet__head-title">
-                <span class="m-portlet__head-icon m--hide">
-                    <i class="flaticon-statistics"></i>
-                </span>
-                <h3 class="m-portlet__head-text text-white">
-                    Portlet sub title goes here
-                </h3>
-                <h2 class="m-portlet__head-label m-portlet__head-label--primary">
-                    <span>تعديل بيانات الكتاب  </span>
-                </h2>
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon m--hide">
+                        <i class="flaticon-statistics"></i>
+                    </span>
+                    <h3 class="m-portlet__head-text text-white">
+                        Portlet sub title goes here
+                    </h3>
+                    <h2 class="m-portlet__head-label m-portlet__head-label--primary">
+                        <span>تعديل بيانات الكتاب </span>
+                    </h2>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!--begin::Form-->
-    <form action="{{ route('books.update',$book->id) }}" method="POST" enctype="multipart/form-data" class="m-form m-form--fit m-form--label-align-right">
-        @method('PUT')
-        @csrf
-        <div class="m-portlet__body">
+        <!--begin::Form-->
+        <form action="{{ route('books.update',$book->id) }}" method="POST" enctype="multipart/form-data"
+            class="m-form m-form--fit m-form--label-align-right">
+            @method('PUT')
+            @csrf
+            <div class="m-portlet__body">
                 <div class="form-group m-form__group row">
                     <label class="col-form-label col-lg-3 col-sm-12">أسم الكتاب </label>
                     <div class="col-lg-7 col-md-7 col-sm-12">
-                        <input type="text" name="title" value="{{ old('title',$book->title) }}" class="form-control m-input" required="required" placeholder="أدخل أسم الكتاب"> </div>
+                        <input type="text" name="title" value="{{ old('title',$book->title) }}"
+                            class="form-control m-input" required="required" placeholder="أدخل أسم الكتاب">
+                    </div>
                 </div>
                 <div class="form-group m-form__group row">
                     <label class="col-form-label col-lg-3 col-sm-12">شهرة الكتاب </label>
                     <div class="col-lg-7 col-md-7 col-sm-12">
-                        <input type="text" name="slug" value="{{ old('slug',$book->slug) }}" class="form-control m-input" required="required" placeholder=" أدخل شهرة الكتاب">
+                        <input type="text" name="slug" value="{{ old('slug',$book->slug) }}"
+                            class="form-control m-input" required="required" placeholder=" أدخل شهرة الكتاب">
                     </div>
                 </div>
                 <div class="form-group m-form__group row">
                     <label class="col-form-label col-lg-3 col-sm-12">ملف الكتاب </label>
                     <div class="col-lg-7 col-md-7 col-sm-12">
-                        <input type="text" name="file" value="{{ old('file',$book->file) }}" class="form-control m-input" required="required" placeholder="أدخل عنوان الملف"> </div>
+                        <input type="text" name="file" value="{{ old('file',$book->file) }}"
+                            class="form-control m-input" required="required" placeholder="أدخل عنوان الملف">
+                    </div>
                 </div>
                 <div class="form-group m-form__group row">
                     <label class="col-form-label col-lg-3 col-sm-12">القسم </label>
                     <div class="col-lg-4 col-md-9 col-sm-12">
-                        <select class="form-control m-select2" id="m_select2_1" name="category_id[]" multiple="multiple">
+                        <select class="form-control m-select2" id="m_select2_1" name="category_id[]"
+                            multiple="multiple">
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" @if ( in_array($category->id , $bookCategories ) ) selected=selected @endif >
-                                    {{ $category->name }} 
-                                </option>
+                            <option value="{{ $category->id }}" @if ( in_array($category->id , $bookCategories ) )
+                                selected=selected @endif >
+                                {{ $category->name }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -58,7 +66,8 @@
                     <div class="col-lg-4 col-md-9 col-sm-12">
                         <select class="form-control m-select2" id="m_select2_2" name="author_id[]" multiple="multiple">
                             @foreach ($authors as $author)
-                                <option value="{{ $author->id }}" @if ( in_array($author->id , $bookAuthors ) ) selected=selected @endif > {{ $author->name }} </option>
+                            <option value="{{ $author->id }}" @if ( in_array($author->id , $bookAuthors ) )
+                                selected=selected @endif > {{ $author->name }} </option>
                             @endforeach
                         </select>
                     </div>
@@ -68,7 +77,8 @@
                     <div class="col-lg-4 col-md-9 col-sm-12">
                         <select class="form-control m-select2" id="m_select2_3" name="tag_id[]" multiple="multiple">
                             @foreach ($tags as $tag)
-                                <option value="{{ $tag->id }}" @if ( in_array($tag->id , $bookTags ) ) selected=selected @endif > {{ $tag->name }} </option>
+                            <option value="{{ $tag->id }}" @if ( in_array($tag->id , $bookTags ) ) selected=selected
+                                @endif > {{ $tag->name }} </option>
                             @endforeach
                         </select>
                     </div>
@@ -77,22 +87,24 @@
                     <label class="col-form-label col-lg-3 col-sm-12"> الحالة </label>
                     <div class="col-lg-4 col-md-9 col-sm-12">
                         <select class="form-control" name="status">
-                                <option @if ($book->status == 1) selected=selected @endif value="1">نشط</option>
-                                <option @if ($book->status == 0) selected=selected @endif value="0">غير نشط</option>
+                            <option @if ($book->status == 1) selected=selected @endif value="1">نشط</option>
+                            <option @if ($book->status == 0) selected=selected @endif value="0">غير نشط</option>
                         </select>
                     </div>
                 </div>
-    
+
                 <div class="form-group m-form__group row">
                     <label class="col-form-label col-lg-3 col-sm-12"> تفاصيل الكتاب </label>
                     <div class="col-lg-7 col-md-7 col-sm-12">
-                        <textarea class="form-control my-editor" name="description">{!! old('description',$book->description) !!}</textarea>
+                        <textarea class="form-control my-editor"
+                            name="description">{!! old('description',$book->description) !!}</textarea>
                     </div>
                 </div>
                 <div class="form-group m-form__group row">
                     <label class="col-form-label col-lg-3 col-sm-12">غلاف الكتاب </label>
                     <div class="col-lg-7 col-md-7 col-sm-12">
-                        <input type="file" name="pic" class="form-control m-input"> </div>
+                        <input type="file" name="pic" class="form-control m-input">
+                    </div>
                 </div>
             </div>
             <div class="m-portlet__foot m-portlet__foot--fit">
@@ -105,15 +117,15 @@
                     </div>
                 </div>
             </div>
-    </form>
-    <!--end::Form-->
-</div>
-<!--end::Portlet-->
-@endsection
-@push('js')
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>
-  var editor_config = {
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Portlet-->
+    @endsection
+    @push('js')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        var editor_config = {
     path_absolute : "/",
     selector: "textarea.my-editor",
     plugins: [
@@ -147,5 +159,5 @@
   };
 
   tinymce.init(editor_config);
-</script>
-@endpush
+    </script>
+    @endpush
