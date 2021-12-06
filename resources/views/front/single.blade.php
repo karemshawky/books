@@ -11,7 +11,7 @@
 				<div class="novel-img">
 					<div class="media-list">
 						<div class="media">
-							<div class="media-body"> 
+							<div class="media-body">
 								<img src="{{ asset('uploads/book/' . $book->pic ) }}" class="media-pic read-pic" >
 							</div>
 						</div>
@@ -30,15 +30,15 @@
 				<div class="novel-single">
 					<div class="ps-header">
 						<h2 class="novel-title space30"> {{ $book->title }} </h2>
-						<div class="col-md-6 col-sm-6 ps-price space30"><img src="{{ asset('images/writer.png') }}"> المؤلف : 
+						<div class="col-md-6 col-sm-6 ps-price space30"><img src="{{ asset('images/writer.png') }}"> المؤلف :
 							@foreach ($book->authors as $author)
 								<a href="{{ route('authors.slug', $author->slug) }}" class="writer"> {{ $author->name }} </a>
-							@endforeach 
+							@endforeach
 						</div>
-						<div class="col-md-6 col-sm-6 ps-price space30"><img src="{{ asset('images/layout.png') }}"> القسم : 
+						<div class="col-md-6 col-sm-6 ps-price space30"><img src="{{ asset('images/layout.png') }}"> القسم :
 							@foreach ($book->categories as $category)
 								<a href="{{ route('cat', $category->slug) }}" class="writer"> {{ $category->name }} </a>
-							@endforeach 
+							@endforeach
 						</div>
 					</div>
 					<div class="row">
@@ -57,7 +57,7 @@
 						<div class="product-info book-tags">
 							@foreach ($book->tags as $tags)
 								<h4><a href="{{ route('tags', $tags->name) }}">  {{ $tags->name .' , ' }} </a></h4>
-							@endforeach					
+							@endforeach
 						</div>
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 							</div>
 						</div>
 					</div>
-					@endforeach					
+					@endforeach
 				</div>
 				<div class="sep space30"></div>
 				<h3 class="space30"> تعليقات الفيس بوك </h3>

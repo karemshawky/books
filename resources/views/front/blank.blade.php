@@ -24,13 +24,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/images/favicon.ico">
 
     <!-- Webfont -->
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('front/css/app.css') }}">
+
+    @stack('css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,16 +44,6 @@
 </head>
 
 <body id="home2" class="home3">
-    <div id="fb-root"></div>
-    <script>
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v3.2&appId=395003454372181&autoLogAppEvents=1';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
 
     <!-- PRELOADER -->
     <div id="loader"></div>
@@ -201,8 +193,7 @@
     <!-- Jquery -->
     <script src="{{ asset('front/js/app.js') }}"></script>
 
-    <!-- ADDTHIS -->
-    <script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5be0ebcd34b7ff10"></script>
+    @stack('js')
 
 </body>
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Traits\MetaTags;
 use Illuminate\Http\Request;
-use App\{Book, Author, Category};
+use App\Models\{Book, Author, Category};
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Spatie\Sitemap\{Sitemap, Tags\Url};
 
@@ -26,6 +26,10 @@ class HomeController extends Controller
         $data['historicStory'] = $book->getBooksFromCategory(2, 5);
         $data['humanDevelopment'] = $book->getBooksFromCategory(3, 5);
         $data['translatedStory'] = $book->getBooksFromCategory(4, 12);
+
+        if (request()->wantsJson()) {
+            return response()->json($data, 200);
+        }
 
         $this->seoIndex();
 

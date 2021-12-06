@@ -33,7 +33,7 @@ trait MetaTags
     {
         SEOMeta::setTitle($book->title);
         SEOMeta::setDescription($metaDescription);
-        SEOMeta::addKeyword(array_pluck($book->tags, 'name'));
+        SEOMeta::addKeyword($book->tags->pluck('name'));
         SEOMeta::addMeta('topic', $book->title);
         OpenGraph::setTitle($book->title);
         OpenGraph::setDescription($metaDescription);

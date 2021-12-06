@@ -6,10 +6,17 @@ const mix = require('laravel-mix');
  |--------------------------------------------------------------------------
  |
  | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
+ | for your Laravel applications. By default, we are compiling the CSS
  | file for the application as well as bundling up all the JS files.
  |
  */
+
+// mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
+//     require('postcss-import'),
+//     require('tailwindcss'),
+//     require('autoprefixer'),
+// ]);
+
 
 mix
     /*Front-End assets*/
@@ -26,11 +33,11 @@ mix
               'resources/front/js/jquery-ui.min.js',
               'resources/front/js/vendors/select/jquery.selectBoxIt.min.js',
               'resources/front/js/main.js',
-            ],'public/front/js/app.js')  
+            ],'public/front/js/app.js')
 
     .sass('resources/front/app.scss', 'public/front/css/app.css')
    /*Back-End assets*/
-   .scripts(['resources/backend/js/vendors.bundle.js', 
+   .scripts(['resources/backend/js/vendors.bundle.js',
              'resources/backend/js/scripts.bundle.js',
              'resources/backend/js/datatables.bundle.js',
              'resources/backend/js/actions.js',
@@ -38,9 +45,9 @@ mix
              'resources/backend/js/multiple-controls.js',
              'resources/backend/js/select2.js',
            ],'public/backend/js/admin.js')
-   .scripts(['resources/backend/js/vendors.bundle.js', 
-             'resources/backend/js/scripts.js',
-           ],'public/backend/js/login.js')         
+   .scripts(['resources/backend/js/vendors.bundle.js',
+            //  'resources/backend/js/scripts.js',
+           ],'public/backend/js/login.js')
    .sass('resources/backend/app.scss', 'public/backend/css/admin.css')
    .options({
       fileLoaderDirs: {

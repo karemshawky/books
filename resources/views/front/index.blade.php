@@ -4,6 +4,7 @@
 <!-- SLIDER -->
 <div class="slider-wrap slider-carousel">
     <div class="top-product-carousel">
+        {{-- <first-slider> </first-slider> --}}
         @foreach ($data['firstSlider'] as $first)
         <div class="tpc-content"> <img src="{{ asset('uploads/book/' . $first->pic) }}" class="img-responsive"
                 alt="{{ $first->name }}" />
@@ -128,3 +129,7 @@
 </div>
 <div class="space20"></div>
 @endsection
+
+@push('js')
+    <script src="/front/plugin/owl-carousel/owl.carousel.min.js"></script>
+@endpush

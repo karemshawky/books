@@ -14,9 +14,8 @@ class CreateAuthorsTable extends Migration
     public function up()
     {
         Schema::create('authors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->id();
+            $table->foreignId('user_id')->index()->constrained('users')->onDelete('cascade');
             $table->string('slug')->unique()->nullable();
             $table->text('about')->nullable();
             $table->string('pic')->nullable();

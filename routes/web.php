@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,39 +14,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view('/', 'welcome');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
 //Frontend Routes
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/books', 'HomeController@getAllBooks')->name('books');
-Route::get('/books/{slug}', 'HomeController@getBook')->name('books.slug');
-Route::get('/reads', 'HomeController@getAllReads')->name('reads');
-Route::get('/reads/{slug}', 'HomeController@getRead')->name('reads.slug');
-Route::get('/authors', 'HomeController@getAllAuthors')->name('authors');
-Route::get('/authors/{slug}', 'HomeController@getAuthor')->name('authors.slug');
-Route::get('/cats/{slug}', 'HomeController@getCategory')->name('cat');
-Route::get('/contactus', 'HomeController@contact')->name('contact');
-Route::get('/search', 'HomeController@search')->name('search');
-Route::get('/tags/{word}', 'HomeController@searchByTags')->name('tags');
-Route::get('/sitemap', 'HomeController@createSiteMap')->name('sitemaps');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/books', [HomeController::class, 'getAllBooks'])->name('books');
+Route::get('/books/{slug}', [HomeController::class, 'getBook'])->name('books.slug');
+Route::get('/reads', [HomeController::class, 'getAllReads'])->name('reads');
+Route::get('/reads/{slug}', [HomeController::class, 'getRead'])->name('reads.slug');
+Route::get('/authors', [HomeController::class, 'getAllAuthors'])->name('authors');
+Route::get('/authors/{slug}', [HomeController::class, 'getAuthor'])->name('authors.slug');
+Route::get('/cats/{slug}', [HomeController::class, 'getCategory'])->name('cat');
+Route::get('/contactus', [HomeController::class, 'contact'])->name('contact');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/tags/{word}', [HomeController::class, 'searchByTags'])->name('tags');
+Route::get('/sitemap', [HomeController::class, 'createSiteMap'])->name('sitemaps');
 
-//Backend Routes
-Route::group(['prefix' => 'admin'], function () {
+// //Backend Routes
+// Route::middleware(['auth', 'role:super|admin'])->group(['prefix' => 'admin'], function () {
 
-    Auth::routes();
+//     Route::get('/home', 'HomeBackController@index')->name('backHome');
+//     Route::resource('/cats', 'CategoryController');
 
-    Route::get('/home', 'HomeBackController@index')->name('backHome');
-    Route::resource('/cats', 'CategoryController');
+//     Route::get('get-all-categories', 'CategoryController@getData')->name('cats.get');
+//     Route::resource('/authors', 'AuthorController');
 
-    Route::get('get-all-categories', 'CategoryController@getData')->name('cats.get');
-    Route::resource('/authors', 'AuthorController');
+//     Route::get('get-all-authors', 'AuthorController@getAuthors')->name('authors.get');
+//     Route::resource('/tags', 'TagController');
 
-    Route::get('get-all-authors', 'AuthorController@getAuthors')->name('authors.get');
-    Route::resource('/tags', 'TagController');
+//     Route::get('get-all-tags', 'TagController@getTags')->name('tags.get');
+//     Route::resource('/books', 'BookController');
 
-    Route::get('get-all-tags', 'TagController@getTags')->name('tags.get');
-    Route::resource('/books', 'BookController');
+//     Route::get('get-all-books', 'BookController@getBooks')->name('books.get');
+//     Route::resource('/settings', 'SettingController')->only(['index', 'edit', 'update']);
+// });
 
-    Route::get('get-all-books', 'BookController@getBooks')->name('books.get');
-    Route::resource('/settings', 'SettingController')->only(['index', 'edit', 'update']);
-});
-
-// middleware(['auth', 'role:super|admin'])->
+require __DIR__ . '/auth.php';

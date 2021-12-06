@@ -14,11 +14,9 @@ class CreateBookTagTable extends Migration
     public function up()
     {
         Schema::create('book_tag', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('book_id');
-            $table->foreign('book_id')->references('id')->on('books');
-            $table->unsignedInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->id();
+            $table->foreignId('book_id')->index()->constrained('books')->onDelete(null);
+            $table->foreignId('tag_id')->index()->constrained('tags')->onDelete(null);
         });
     }
 
