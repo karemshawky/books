@@ -11,7 +11,7 @@
             @foreach ($authors as $author)
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="product-item">
-                    <div class="item-thumb"> <img height="200" src="{{ asset('uploads/author/' . $author->pic) }}" />
+                    <div class="item-thumb"> <img height="200" src="{{ url($author->pic) }}" />
                     </div>
                     <div class="product-info">
                         <div class="author">

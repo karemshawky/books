@@ -11,8 +11,8 @@
 				<div class="novel-img">
 					<div class="media-list">
 						<div class="media">
-							<div class="media-body"> 
-								<img src="{{ asset('uploads/book/' . $book->pic) }}" class="media-pic read-pic" >
+							<div class="media-body">
+								<img src="{{ url($book->pic) }}" class="media-pic read-pic" >
 							</div>
 						</div>
 						<div class="media space50">
@@ -44,7 +44,7 @@
 						<div class="product-info book-tags">
 							@foreach ($book->tags as $tags)
 								<h4><a href="{{ route('tags', $tags->name) }}">  {{ $tags->name .' , ' }} </a></h4>
-							@endforeach					
+							@endforeach
 						</div>
 					</div>
 				</div>
@@ -56,14 +56,14 @@
 					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
 						<div class="product-item">
 							<div class="item-thumb">
-								<img src="{{ asset('uploads/book/' . $related->pic ) }}" class="media-pic" width="200" height="250">
+								<img src="{{ url($related->pic ) }}" class="media-pic" width="200" height="250">
 							</div>
 							<div class="product-info">
 								<h3 class="product-title"><a href="{{ route('books.slug',$related->slug) }}"> {{ $related->title }} </a></h3>
 							</div>
 						</div>
 					</div>
-					@endforeach	
+					@endforeach
 				</div>
 				<div class="sep space30"></div>
 				<h3 class="space30"> تعليقات الفيس بوك </h3>

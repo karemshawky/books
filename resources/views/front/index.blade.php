@@ -6,8 +6,7 @@
     <div class="top-product-carousel">
         {{-- <first-slider> </first-slider> --}}
         @foreach ($data['firstSlider'] as $first)
-        <div class="tpc-content"> <img src="{{ asset('uploads/book/' . $first->pic) }}" class="img-responsive"
-                alt="{{ $first->name }}" />
+        <div class="tpc-content"> <img src="{{ asset($first->pic) }}" class="img-responsive" alt="{{ $first->name }}" />
             <div class="tpc-overlay">
                 <div class="tpc-overlay-inner">
                     <div class="tpc-info">
@@ -32,8 +31,8 @@
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                 <div class="product-item">
                     <div class="item-thumb">
-                        <img width="150" height="200" src="{{ asset('uploads/book/' . $arabic->pic) }}"
-                            class="img-responsive" alt="{{ $arabic->title }}" />
+                        <img width="150" height="200" src="{{ asset($arabic->pic) }}" class="img-responsive"
+                            alt="{{ $arabic->title }}" />
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">
@@ -61,8 +60,8 @@
                     <div class="pc-wrap col-md-3 col-sm-3 col-xs-3">
                         <div class="product-item">
                             <div class="item-thumb">
-                                <img width="263" height="350" src="{{ asset('uploads/book/' . $history->pic) }}"
-                                    class="img-responsive" alt="{{ $history->title }}" />
+                                <img width="263" height="350" src="{{ asset($history->pic) }}" class="img-responsive"
+                                    alt="{{ $history->title }}" />
                             </div>
                             <div class="product-info">
                                 <h3 class="product-title"><a href="{{ route('books.slug', $history->slug) }}"> {{
@@ -82,8 +81,8 @@
                     <div class="pc-wrap col-md-3 col-sm-3 col-xs-3">
                         <div class="product-item">
                             <div class="item-thumb">
-                                <img width="263" height="350" src="{{ asset('uploads/book/' . $human->pic) }}"
-                                    class="img-responsive" alt="{{ $human->title }}" />
+                                <img width="263" height="350" src="{{ asset($human->pic) }}" class="img-responsive"
+                                    alt="{{ $human->title }}" />
                             </div>
                             <div class="product-info">
                                 <h3 class="product-title"><a href="{{ route('books.slug', $human->slug) }}"> {{
@@ -111,8 +110,8 @@
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                 <div class="product-item">
                     <div class="item-thumb">
-                        <img width="150" height="200" src="{{ asset('uploads/book/' . $translated->pic) }}"
-                            class="img-responsive" alt="{{ $translated->title }}" />
+                        <img width="150" height="200" src="{{ asset($translated->pic) }}" class="img-responsive"
+                            alt="{{ $translated->title }}" />
                     </div>
                     <div class="product-info">
                         <h3 class="product-title"><a href="{{ route('books.slug', $translated->slug) }}"> {{

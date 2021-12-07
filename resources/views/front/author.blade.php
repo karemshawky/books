@@ -13,8 +13,7 @@
                     <div class="media-list">
                         <div class="media">
                             <div class="media-body">
-                                <img src="{{ asset('uploads/author/' . $author->pic ) }}" class="media-pic"
-                                    alt="{{ $author->name }}">
+                                <img src="{{ url($author->pic ) }}" class="media-pic" alt="{{ $author->name }}">
                             </div>
                         </div>
                         <div class="media">
@@ -44,7 +43,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
                         <div class="product-item">
                             <div class="item-thumb">
-                                <img width="150" height="200" src="{{ asset('uploads/book/' . $book->pic )}}">
+                                <img width="150" height="200" src="{{ asset($book->pic )}}">
                             </div>
                             <div class="product-info">
                                 <h3 class="product-title"><a href="{{ route('books.slug', $book->slug) }}"> {{

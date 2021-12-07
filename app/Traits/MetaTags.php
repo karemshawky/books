@@ -37,7 +37,7 @@ trait MetaTags
         SEOMeta::addMeta('topic', $book->title);
         OpenGraph::setTitle($book->title);
         OpenGraph::setDescription($metaDescription);
-        OpenGraph::addImage(route('home') . '/uploads/book/' . $book->pic);
+        OpenGraph::addImage(url($book->pic));
 
         echo Schema::book()->name($book->title)
             ->breadcrumb('Book > ' . $category->name)
@@ -45,7 +45,7 @@ trait MetaTags
             ->workExample([
                 '@type'  => 'Book',
                 'bookFormat' => 'https://schema.org/EBook',
-                'image'  => route('home') . '/uploads/book/' . $book->pic,
+                'image'  => url($book->pic),
                 'inLanguage' => 'Arabic',
                 'name' => 'PDF of ' . $book->title,
                 'fileFormat' => 'application/pdf',

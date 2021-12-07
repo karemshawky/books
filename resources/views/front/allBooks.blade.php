@@ -13,7 +13,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="product-item all-books">
                     <div class="item-thumb"> <img width="200" height="250"
-                            src="{{ asset('uploads/book/' . $book->pic) }}" /> </div>
+                            src="{{ asset($book->pic) }}" /> </div>
                     <div class="product-info">
                         <h3 class="product-title">
                             <a

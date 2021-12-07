@@ -64,4 +64,9 @@ class Book extends Model
             $book->whereCategoryId($cat);
         })->whereStatus(1)->latest('updated_at')->take($take)->get();
     }
+
+    public function getPicAttribute()
+    {
+        return $this->attributes['pic'] ? url("{$this->attributes['pic']}") : url('images/girl.jpg');
+    }
 }

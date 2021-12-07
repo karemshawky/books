@@ -12,7 +12,7 @@
                     <div class="media-list">
                         <div class="media">
                             <div class="media-body">
-                                <img src="{{ asset('uploads/book/' . $book->pic ) }}" class="media-pic read-pic">
+                                <img src="{{ url($book->pic ) }}" class="media-pic read-pic">
                             </div>
                         </div>
                         <div class="media">
@@ -75,7 +75,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
                         <div class="product-item">
                             <div class="item-thumb">
-                                <img src="{{ asset('uploads/book/' . $related->pic ) }}" class="media-pic" width="200"
+                                <img src="{{ url($related->pic ) }}" class="media-pic" width="200"
                                     height="200">
                             </div>
                             <div class="product-info">

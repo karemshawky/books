@@ -21,9 +21,9 @@ use App\Http\Controllers\{
 |
 */
 
-Route::view('/', 'welcome');
-
 //Frontend Routes
+
+Route::view('/', 'welcome');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/books', [HomeController::class, 'getAllBooks'])->name('books');
 Route::get('/books/{slug}', [HomeController::class, 'getBook'])->name('books.slug');
@@ -39,6 +39,7 @@ Route::get('/sitemap', [HomeController::class, 'createSiteMap'])->name('sitemaps
 
 
 //Backend Routes
+
 Route::redirect('/admin', '/admin/home');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:super|admin']], function () {
 
