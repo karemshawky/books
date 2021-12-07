@@ -20,4 +20,9 @@ class Author extends Model
     {
         return $this->belongsToMany(Book::class);
     }
+
+    public function getPicAttribute()
+    {
+        return $this->attributes['pic'] ? url("{$this->attributes['pic']}") : url('images/omar.jpg');
+    }
 }

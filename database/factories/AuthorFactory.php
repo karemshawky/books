@@ -25,7 +25,7 @@ class AuthorFactory extends Factory
             'name'    => $this->faker->name,
             'slug'    => make_slug($this->faker->name, '-'),
             'about'   => $this->faker->text(600),
-            'pic'     => 'omar.jpg',
+            'pic'     => null,
             'user_id' => 1,
             'status'  => 1
         ];

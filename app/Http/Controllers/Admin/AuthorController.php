@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use File;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class AuthorController extends Controller
@@ -16,7 +17,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('backend.author.show');
+        return view('backend.author.index');
     }
 
     /**
@@ -62,13 +63,14 @@ class AuthorController extends Controller
             'slug'  => 'required|string',
             'about' => 'nullable|string',
             'pic'   => 'nullable|image|max:4000',
-        ])->validated();
+            'status' => ['required', Rule::in([0, 1])]
+        ]);
 
         if ($request->hasFile('pic')) {
-            $validated['pic'] = $request->file('cover')->store('authors', 'public');
+            $validated['pic'] = $request->file('pic')->store('authors', 'public');
         }
 
-        $author = Author::create([
+        Author::create([
             'name'    => $validated['name'],
             'slug'    => make_slug($validated['slug'], '-'),
             'about'   => $validated['about'],
@@ -93,7 +95,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        return view('backend.author.read', compact('author'));
+        return view('backend.author.show', compact('author'));
     }
 
     /**
@@ -123,20 +125,23 @@ class AuthorController extends Controller
             'pic'   => 'nullable|image|max:4000',
         ]);
 
-        $author->update([
-            'name'   => $request->name,
-            'slug'   => make_slug($request->slug, '-'),
-            'about'  => $request->about,
-            'status' => $request->status
-        ]);
-
         if ($request->hasFile('pic')) {
-            if (File::exists($this->picPath . $author->pic) && $author->pic != 'no-image.png') {
-                File::delete($this->picPath . $author->pic);
+
+            if (File::exists($author->pic)) {
+                File::delete($author->pic);
             }
-            $picName = $this->upload->uploadImage($request, 'pic', $this->picPath, 640, 480);
-            $author->update(['pic' => $picName]);
+
+            $validated['pic'] = $request->file('pic')->store('authors', 'public');
+            $author->update(['pic' => $validated['pic']]);
         }
+
+        $author->update([
+            'name'    => $validated['name'],
+            'slug'    => make_slug($validated['slug'], '-'),
+            'about'   => $validated['about'],
+            'user_id' => auth()->id(),
+            'status'  => $validated['status']
+        ]);
 
         return back()->with([
             'url'     => 'authors.index',
@@ -153,8 +158,8 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        if (File::exists($this->picPath . $author->pic) && $author->pic != 'no-image.png') {
-            File::delete($this->picPath . $author->pic);
+        if (File::exists($author->pic)) {
+            File::delete($author->pic);
         }
 
         $author->delete();

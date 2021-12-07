@@ -1,57 +1,62 @@
 @extends('backend.blank')
 @section('content')
 
-   <div class="m-content">        
-   <div class="m-portlet m-portlet--mobile">
+<div class="m-content">
+    <!--begin::Portlet-->
+    <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
         <div class="m-portlet__head">
-            <div class="m-portlet__head-tools">
-                <ul class="m-portlet__nav">
-                    <li class="m-portlet__nav-item">
-                        <a href="{{ route('authors.create') }}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air">
-                            <span>
-                                <i class="la la-plus"></i>
-                                <span>إضافة مؤلف جديد</span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="m-portlet__nav-item"></li>
-                </ul>
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title"> <span class="m-portlet__head-icon m--hide">
+                        <i class="flaticon-statistics"></i>
+                    </span>
+                    <h3 class="m-portlet__head-text text-white"> Portlet sub title goes here </h3>
+                    <h2 class="m-portlet__head-label m-portlet__head-label--info">
+                        <span>عرض مؤلف </span>
+                    </h2>
+                </div>
             </div>
         </div>
+
         <div class="m-portlet__body">
-            <!--begin: Datatable -->
-            <table class="table table-striped- table-bordered table-hover table-checkable" id="category-table">
-                <thead>
+            <table class="table table-bordered">
+                <tbody>
                     <tr>
-                        <th>المسلسل</th>
-                        <th>أسم المؤلف</th>
-                        <th> بيانات المؤلف</th>
-                        <th> المسؤول </th>
-                        <th> الحالة </th>
-                        <th> - </th>
+                        <td class="w-25 p-3">
+                            <h6> صورة المؤلف </h6>
+                        </td>
+                        <td class="w-75 p-3">
+                            <h5> <img src="{{ $author->pic }}" width="200" height="200"> </h5>
+                        </td>
                     </tr>
-                </thead>
+                    <tr>
+                        <td class="w-25 p-3">
+                            <h6> أسم المؤلف </h6>
+                        </td>
+                        <td class="w-75 p-3">
+                            <h5> {{ $author->name }} </h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-25 p-3">
+                            <h6> معلومات عن المؤلف </h6>
+                        </td>
+                        <td class="w-75 p-3">
+                            <h5> {!! $author->about !!} </h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-25 p-3">
+                            <h6> المسؤول </h6>
+                        </td>
+                        <td class="w-75 p-3">
+                            <h5> {{ $author->user->name }} </h5>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
+            <a href="{{ route('authors.index') }}" class="btn btn-md btn-info">رجوع</a>
         </div>
+
     </div>
-    <!-- END EXAMPLE TABLE PORTLET-->
-@endsection
-@push('js')
-<script>
-$(function() {
-    $('#category-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '{!! route('authors.get') !!}',
-        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'name', name: 'name' },
-            { data: 'about', name: 'about' },
-            { data: 'user_id', name: 'user_id' },
-            { data: 'status', name: 'status' },
-            { data: 'action', name: 'action' }
-        ]
-    });
-});
-</script>
-@endpush
+    <!--end::Portlet-->
+    @endsection
