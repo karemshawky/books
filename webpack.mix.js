@@ -11,13 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-// mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
-//     require('postcss-import'),
-//     require('tailwindcss'),
-//     require('autoprefixer'),
-// ]);
-
-
 mix
     /*Front-End assets*/
     .scripts(['resources/front/js/jquery.js',
@@ -45,9 +38,6 @@ mix
              'resources/backend/js/multiple-controls.js',
              'resources/backend/js/select2.js',
            ],'public/backend/js/admin.js')
-//    .scripts(['resources/backend/js/vendors.bundle.js',
-//              'resources/backend/js/scripts.js',
-//            ],'public/backend/js/login.js')
    .sass('resources/backend/app.scss', 'public/backend/css/admin.css')
    .options({
       fileLoaderDirs: {
