@@ -44,7 +44,7 @@ class HomeController extends Controller
      */
     public function getBook($book)
     {
-        $book = Book::with('authors', 'categories', 'tags')->whereSlug($book)->firstOrFail();
+        $book = Book::with('authors', 'categories:id,name,slug', 'tags:name')->whereSlug($book)->firstOrFail();
 
         $category = $book->categories->first();
         $relatedBooks = Category::findOrFail($category->id)->books->take(4)->except($book->id);
@@ -94,6 +94,7 @@ class HomeController extends Controller
     public function getAllReads()
     {
         $books = Book::with('authors')->latest('updated_at')->paginate(20);
+
         return view('front.allBooks', compact('books'));
     }
 
@@ -106,6 +107,7 @@ class HomeController extends Controller
     public function getAuthor($author)
     {
         $author = Author::with('books')->whereSlug($author)->firstOrFail();
+
         $metaDescription = removeStripTagsAndDecode($author->description);
 
         $this->seoAuthorOrCategory($author, $metaDescription);
@@ -121,6 +123,7 @@ class HomeController extends Controller
     public function getAllAuthors()
     {
         $authors = Author::paginate(20);
+
         return view('front.allAuthors', compact('authors'));
     }
 

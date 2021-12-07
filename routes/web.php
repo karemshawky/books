@@ -1,7 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\{
+    HomeController,
+    Admin\DashboardController,
+    Admin\CategoryController,
+    Admin\AuthorController,
+    Admin\TagController,
+    Admin\BookController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +22,6 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::view('/', 'welcome');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 //Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -34,23 +37,24 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/tags/{word}', [HomeController::class, 'searchByTags'])->name('tags');
 Route::get('/sitemap', [HomeController::class, 'createSiteMap'])->name('sitemaps');
 
-// //Backend Routes
-// Route::middleware(['auth', 'role:super|admin'])->group(['prefix' => 'admin'], function () {
 
-//     Route::get('/home', 'HomeBackController@index')->name('backHome');
-//     Route::resource('/cats', 'CategoryController');
+//Backend Routes
+Route::redirect('/admin', '/admin/home');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:super|admin']], function () {
 
-//     Route::get('get-all-categories', 'CategoryController@getData')->name('cats.get');
-//     Route::resource('/authors', 'AuthorController');
+    Route::get('/home', [DashboardController::class, 'index'])->name('backHome');
 
-//     Route::get('get-all-authors', 'AuthorController@getAuthors')->name('authors.get');
-//     Route::resource('/tags', 'TagController');
+    Route::resource('/cats', CategoryController::class);
+    Route::get('get-all-categories', [CategoryController::class, 'getData'])->name('cats.get');
 
-//     Route::get('get-all-tags', 'TagController@getTags')->name('tags.get');
-//     Route::resource('/books', 'BookController');
+    Route::resource('/authors', AuthorController::class);
+    Route::get('get-all-authors', [AuthorController::class, 'getAuthors'])->name('authors.get');
 
-//     Route::get('get-all-books', 'BookController@getBooks')->name('books.get');
-//     Route::resource('/settings', 'SettingController')->only(['index', 'edit', 'update']);
-// });
+    Route::resource('/tags', TagController::class);
+    Route::get('get-all-tags', [TagController::class, 'getTags'])->name('tags.get');
+
+    Route::resource('/books', BookController::class);
+    Route::get('get-all-books', [BookController::class, 'getBooks'])->name('books.get');
+});
 
 require __DIR__ . '/auth.php';

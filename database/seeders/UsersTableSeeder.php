@@ -30,16 +30,16 @@ class UsersTableSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-        $author = User::create([
-            'name'     => 'Author Test',
-            'email'    => 'author@books.com',
-            'password' => bcrypt('123456')
-        ]);
+    //     $author = User::create([
+    //         'name'     => 'Author Test',
+    //         'email'    => 'author@books.com',
+    //         'password' => bcrypt('123456')
+    //     ]);
 
-        $author->assignRole('author');
+    //     $author->assignRole('author');
 
-        User::factory()->count(20)->hasAuthors(1)->create()->each(function ($user) {
-            $user->assignRole('author');
-        });
+    //     User::factory()->count(20)->hasAuthors(1)->create()->each(function ($user) {
+    //         $user->assignRole('author');
+    //     });
     }
 }

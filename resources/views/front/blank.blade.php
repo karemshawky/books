@@ -192,6 +192,7 @@
 
     <!-- Jquery -->
     <script src="{{ asset('front/js/app.js') }}"></script>
+    <script src="/front/plugin/owl-carousel/owl.carousel.min.js"></script>
 
     @stack('js')
 

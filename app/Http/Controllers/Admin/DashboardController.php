@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\{Book, User, Author, Category};
+use App\Http\Controllers\Controller;
+use App\Models\{Book, User, Author, Category};
 
-class HomeBackController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Show the application dashboard.

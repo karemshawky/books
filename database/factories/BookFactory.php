@@ -29,7 +29,7 @@ class BookFactory extends Factory
             'file'        => '1iTNlgqlY4xJXKQrbjRhJ9XuT6_ZdUApR',
             'status'      => 1,
             'downloaded'  => 0,
-            'user_id'     => $this->faker->numberBetween(1, 23)
+            'author_id'     => $this->faker->numberBetween(1,20)
         ];
     }
 }

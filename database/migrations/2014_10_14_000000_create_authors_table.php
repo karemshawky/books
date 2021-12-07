@@ -16,6 +16,7 @@ class CreateAuthorsTable extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->index()->constrained('users')->onDelete('cascade');
+            $table->string('name');
             $table->string('slug')->unique()->nullable();
             $table->text('about')->nullable();
             $table->string('pic')->nullable();

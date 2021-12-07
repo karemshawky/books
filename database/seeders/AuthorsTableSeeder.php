@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-// use App\Models\Author;
+use App\Models\Author;
 use Illuminate\Database\Seeder;
 
 class AuthorsTableSeeder extends Seeder
@@ -14,6 +14,6 @@ class AuthorsTableSeeder extends Seeder
      */
     public function run()
     {
-        // Author::factory()->count(20)->create();
+        Author::factory()->count(20)->create();
     }
 }

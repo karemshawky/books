@@ -45,9 +45,9 @@ mix
              'resources/backend/js/multiple-controls.js',
              'resources/backend/js/select2.js',
            ],'public/backend/js/admin.js')
-   .scripts(['resources/backend/js/vendors.bundle.js',
-            //  'resources/backend/js/scripts.js',
-           ],'public/backend/js/login.js')
+//    .scripts(['resources/backend/js/vendors.bundle.js',
+//              'resources/backend/js/scripts.js',
+//            ],'public/backend/js/login.js')
    .sass('resources/backend/app.scss', 'public/backend/css/admin.css')
    .options({
       fileLoaderDirs: {

@@ -1,40 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use File;
-use App\Helpers\Media;
 use Illuminate\Http\Request;
-use App\{Book, Tag, Author, Category};
+use App\Http\Controllers\Controller;
+use App\Models\{Book, Tag, Author, Category};
 
 class BookController extends Controller
 {
-    /**
-     * Variable for upload files
-     *
-     * @var $upload
-     */
-    public $upload;
-
-    /**
-     * Variable for author picture path
-     *
-     * @var string
-     */
-    public $picPath;
-
-    /**
-     * __construct
-     *
-     * @param Upload $upload
-     * @return void
-     */
-    public function __construct(Media $upload)
-    {
-        $this->upload = $upload;
-        $this->picPath = public_path('uploads/book/');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -75,6 +49,7 @@ class BookController extends Controller
         $tags = Tag::all();
         $authors = Author::all();
         $categories = Category::all();
+        
         return view('backend.book.create', compact('tags', 'authors', 'categories'));
     }
 

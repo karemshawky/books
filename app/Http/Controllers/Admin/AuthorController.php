@@ -1,40 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use File;
-use App\Author;
+use App\Models\Author;
 use Illuminate\Http\Request;
-use App\Helpers\Media;
+use App\Http\Controllers\Controller;
 
 class AuthorController extends Controller
 {
-    /**
-     * Variable for upload files
-     *
-     * @var string
-     */
-    public $upload;
-
-    /**
-     * Variable for author picture path
-     *
-     * @var string
-     */
-    public $picPath;
-
-    /**
-     * __construct
-     *
-     * @param Upload $upload
-     * @return void
-     */
-    public function __construct(Media $upload)
-    {
-        $this->upload = $upload;
-        $this->picPath = public_path('uploads/author/');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +24,7 @@ class AuthorController extends Controller
      * @param  \App\Model\Author  $author
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getAuthors(Author $author)
+    public function getAuthors()
     {
         return datatables(Author::with('user')->get())->addColumn('action', 'backend.author.action')
             ->editColumn('user_id', function ($author) {
@@ -83,26 +57,26 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name'  => 'required|string|unique:authors',
             'slug'  => 'required|string',
             'about' => 'nullable|string',
             'pic'   => 'nullable|image|max:4000',
-        ]);
-
-        $author = Author::create([
-            'name'    => $request->name,
-            'slug'    => make_slug($request->slug, '-'),
-            'about'   => $request->about,
-            'pic'     => 'no-image.png',
-            'user_id' => auth()->id(),
-            'status'  => $request->status
-        ]);
+        ])->validated();
 
         if ($request->hasFile('pic')) {
-            $picName = $this->upload->uploadImage($request, 'pic', $this->picPath, 640, 480);
-            $author->update(['pic' => $picName]);
+            $validated['pic'] = $request->file('cover')->store('authors', 'public');
         }
+
+        $author = Author::create([
+            'name'    => $validated['name'],
+            'slug'    => make_slug($validated['slug'], '-'),
+            'about'   => $validated['about'],
+            'pic'     => $validated['pic'],
+            'user_id' => auth()->id(),
+            'status'  => $validated['status']
+        ]);
+
 
         return back()->with([
             'url'     => 'authors.index',

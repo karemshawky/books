@@ -1,7 +1,7 @@
 @extends('backend.blank')
 @section('content')
-    
-    <div class="m-content">
+
+<div class="m-content">
     <!--begin::Portlet-->
     <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
         <div class="m-portlet__head">
@@ -37,7 +37,8 @@
                                 </span>
                                 <div class="m--space-10"></div>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar m--bg-brand" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar m--bg-brand" role="progressbar" style="width: 100%;"
+                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +61,8 @@
                                 </span>
                                 <div class="m--space-10"></div>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar m--bg-info" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar m--bg-info" role="progressbar" style="width: 100%;"
+                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span class="text-white">
                                     h5
@@ -86,7 +88,8 @@
                                 </span>
                                 <div class="m--space-10"></div>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar m--bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar m--bg-danger" role="progressbar" style="width: 100%;"
+                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +112,8 @@
                                 </span>
                                 <div class="m--space-10"></div>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar m--bg-success" role="progressbar" style="width:100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar m--bg-success" role="progressbar" style="width:100%;"
+                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
@@ -121,6 +125,6 @@
         </div>
         <!--end:: Widgets/Stats-->
 
-</div>
-<!--end::Portlet-->
-@endsection
+    </div>
+    <!--end::Portlet-->
+    @endsection

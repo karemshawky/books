@@ -129,7 +129,3 @@
 </div>
 <div class="space20"></div>
 @endsection
-
-@push('js')
-    <script src="/front/plugin/owl-carousel/owl.carousel.min.js"></script>
-@endpush

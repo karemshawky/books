@@ -22,10 +22,11 @@ class AuthorFactory extends Factory
     public function definition()
     {
         return [
+            'name'    => $this->faker->name,
             'slug'    => make_slug($this->faker->name, '-'),
             'about'   => $this->faker->text(600),
             'pic'     => 'omar.jpg',
-            'user_id' => 3,
+            'user_id' => 1,
             'status'  => 1
         ];
     }
