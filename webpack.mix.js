@@ -26,8 +26,9 @@ mix
               'resources/front/js/jquery-ui.min.js',
               'resources/front/js/vendors/select/jquery.selectBoxIt.min.js',
               'resources/front/js/main.js',
-            ],'public/front/js/app.js')
-
+              'resources/front/plugin/owl-carousel/owl.carousel.min.js',
+            ],'public/front/js/front.js')
+    .js('resources/js/app.js', 'public/front/js').vue()
     .sass('resources/front/app.scss', 'public/front/css/app.css')
    /*Back-End assets*/
    .scripts(['resources/backend/js/vendors.bundle.js',
@@ -38,6 +39,7 @@ mix
              'resources/backend/js/multiple-controls.js',
              'resources/backend/js/select2.js',
            ],'public/backend/js/admin.js')
+   .js('resources/js/app.js', 'public/backend/js').vue()
    .sass('resources/backend/app.scss', 'public/backend/css/admin.css')
    .options({
       fileLoaderDirs: {

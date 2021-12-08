@@ -4,7 +4,9 @@
 <!-- SLIDER -->
 <div class="slider-wrap slider-carousel">
     <div class="top-product-carousel">
-        {{-- <first-slider> </first-slider> --}}
+
+        {{-- <first-slider :slider="{{ $data['firstSlider'] }}"> </first-slider> --}}
+
         @foreach ($data['firstSlider'] as $first)
         <div class="tpc-content"> <img src="{{ asset($first->pic) }}" class="img-responsive" alt="{{ $first->name }}" />
             <div class="tpc-overlay">
@@ -17,6 +19,7 @@
             </div>
         </div>
         @endforeach
+
     </div>
 </div>
 

@@ -215,7 +215,8 @@
     <!-- begin::Scroll Top -->
     <div id="m_scroll_top" class="m-scroll-top"> <i class="la la-arrow-up"></i> </div>
     <!-- end::Scroll Top -->
-    <script src="{{ asset('backend/js/admin.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('backend/js/admin.js') }}"></script>
+    <script src="{{ asset('backend/js/app.js') }}"></script>
     <!--end::Page Scripts -->
     <script>
         $(document).ready(function(){
