@@ -30,7 +30,16 @@ mix
             ],'public/front/js/front.js')
     .js('resources/js/app.js', 'public/front/js').vue()
     .sass('resources/front/app.scss', 'public/front/css/app.css')
+
    /*Back-End assets*/
+   /** For Login */
+   .js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
+    require('postcss-import'),
+    require('tailwindcss'),
+    require('autoprefixer'),
+   ])
+   /** ------- */
+   /** For Dashboard */
    .scripts(['resources/backend/js/vendors.bundle.js',
              'resources/backend/js/scripts.bundle.js',
              'resources/backend/js/datatables.bundle.js',

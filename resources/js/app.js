@@ -20,10 +20,9 @@ window.Vue = require('vue').default;
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-import FirstSlider from './components/front/FirstSlider.vue';
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('first-slider', FirstSlider);
+require('./components/front/FirstSlider.js');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))

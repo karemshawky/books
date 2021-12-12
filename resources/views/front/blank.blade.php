@@ -191,9 +191,9 @@
         <div id="backtotop"><i class="fa fa-chevron-up"></i></div>
 
     </div>
-    <!-- Jquery -->
-    <script src="{{ mix('front/js/front.js') }}"></script>
+    <!-- Js -->
     <script src="{{ mix('front/js/app.js') }}"></script>
+    <script src="{{ mix('front/js/front.js') }}"></script>
 
     @stack('js')
 

@@ -5,7 +5,21 @@
 <div class="slider-wrap slider-carousel">
     <div class="top-product-carousel">
 
-        {{-- <first-slider :slider="{{ $data['firstSlider'] }}"> </first-slider> --}}
+        {{-- <first-slider :slider="{{ $data['firstSlider'] }}" inline-template>
+            <div>
+                <div class="tpc-content" v-for="slider in sliders" :key="slider.id">
+                    <img :src="slider.pic" class="img-responsive" :alt="slider.title" />
+                    <div class="tpc-overlay">
+                        <div class="tpc-overlay-inner">
+                            <div class="tpc-info">
+                                <h4><a :href="'/books/' + slider.slug"> @{{ slider.title }} </a></h4>
+                                <a :href="'/books/' + slider.slug" class="cart-btn">المزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </first-slider> --}}
 
         @foreach ($data['firstSlider'] as $first)
         <div class="tpc-content"> <img src="{{ asset($first->pic) }}" class="img-responsive" alt="{{ $first->name }}" />
