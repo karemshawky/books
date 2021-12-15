@@ -27,17 +27,19 @@ class AuthorController extends Controller
      */
     public function getAuthors()
     {
-        return datatables(Author::with('user')->get())->addColumn('action', 'backend.author.action')
-            ->editColumn('user_id', function ($author) {
-                return $author->user->name;
-            })
-            ->editColumn('about', function ($author) {
-                return removeStripTagsAndDecode(str_limit($author->about, 50));
-            })
-            ->editColumn('status', function ($author) {
-                return ($author->status == 1) ? 'نشط' : 'غير نشط';
-            })
-            ->toJson();
+        // return datatables(Author::with('user')->get())->addColumn('action', 'backend.author.action')
+        //     ->editColumn('user_id', function ($author) {
+        //         return $author->user->name;
+        //     })
+        //     ->editColumn('about', function ($author) {
+        //         return removeStripTagsAndDecode(str_limit($author->about, 50));
+        //     })
+        //     ->editColumn('status', function ($author) {
+        //         return ($author->status == 1) ? 'نشط' : 'غير نشط';
+        //     })
+        //     ->toJson();
+
+        return response()->json(['authors' => Author::with('user')->get()], 200);
     }
 
     /**

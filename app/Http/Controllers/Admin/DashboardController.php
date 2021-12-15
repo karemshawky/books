@@ -23,4 +23,11 @@ class DashboardController extends Controller
 
         return view('backend.main', compact('counts'));
     }
+
+    public function show()
+    {
+        // page contain all the components
+
+        return view('backend.dashboard');
+    }
 }
