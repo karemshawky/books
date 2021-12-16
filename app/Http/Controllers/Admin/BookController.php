@@ -31,7 +31,7 @@ class BookController extends Controller
             })->editColumn('authors', function ($book) {
                 return $book->authors->implode('name', ' - ');
             })->editColumn('description', function ($book) {
-                return (empty($book->description)) ? '-' : removeStripTagsAndDecode(str_limit($book->description, 50));
+                return (empty($book->description)) ? '-' : removeStripTagsAndDecode(\Str::limit($book->description, 50));
             })->editColumn('status', function ($book) {
                 return ($book->status == 1) ? 'نشط' : 'غير نشط';
             })->editColumn('date', function ($book) {
@@ -49,7 +49,7 @@ class BookController extends Controller
         $tags = Tag::all();
         $authors = Author::all();
         $categories = Category::all();
-        
+
         return view('backend.book.create', compact('tags', 'authors', 'categories'));
     }
 
@@ -61,39 +61,40 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title'       => 'required|string|unique:books',
-            'file'        => 'required',
-            'slug'        => 'required',
-            'description' => 'nullable|string',
-            'pic'         => 'nullable|image|max:4000',
-            'category_id' => 'required',
-            'author_id'   => 'required',
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'link' => 'required|string',
+            'slug' => 'required|string|unique:books,slug',
+            'description' => 'required|string|string',
+            'cover' => 'nullable|image|max:4000',
+            'status' => 'required|boolean',
+            'categories' => 'required',
+            'categories.*' => 'array|string',
+            'authors' => 'required',
+            'authors.*' => 'array|string',
+            'tags' => 'nullable',
+            'tags.*' => 'array',
         ]);
+
+        if ($request->file('cover')->isValid()) {
+            $validated['cover'] = $request->cover->store('public/books');
+        }
 
         $book = Book::create([
-            'title'       => $request->title,
-            'slug'        => make_slug($request->slug, '-'),
-            'file'        => $request->file,
-            'description' => $request->description,
-            'status'      => $request->status,
-            'pic'         => 'girl.jpg',
-            'user_id'     => auth()->id()
+            'title' => $validated['title'],
+            'slug' => make_slug($validated['slug'], '-'),
+            'link' => $validated['link'],
+            'description' => $validated['description'],
+            'status' => $validated['status'],
+            'cover' => "books/{$request->cover->hashName()}",
+            'user_id' => auth()->id()
         ]);
 
-        $book->tags()->attach($request->tag_id);
-        $book->authors()->attach($request->author_id);
-        $book->categories()->attach($request->category_id);
+        $book->tags()->attach($request->tags);
+        $book->authors()->attach($request->authors);
+        $book->categories()->attach($request->categories);
 
-        if ($request->hasFile('pic')) {
-            $picName = $this->upload->uploadImage($request, 'pic', $this->picPath, 600, 800);
-            $book->update(['pic' => $picName]);
-        }
-        return back()->with([
-            'url'     => 'books.index',
-            'type'    => 'success',
-            'message' => 'تم تسجيل الكتاب بنجاح '
-        ]);
+        return response()->json(['message' => 'تم تسجيل الكتاب بنجاح '], 201);
     }
 
     /**
@@ -136,37 +137,40 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'title'       => 'required|string|unique:books,title,' . $book->id,
-            'file'        => 'required',
-            'slug'        => 'required',
+            'title' => 'required|string|unique:books,title,' . $book->id,
+            'link' => 'required',
+            'slug' => 'required',
             'description' => 'nullable|string',
-            'pic'         => 'nullable|image|max:4000',
+            'cover' => 'nullable|image|max:4000',
             'category_id' => 'required',
-            'author_id'   => 'required',
+            'author_id' => 'required',
         ]);
 
         $book->update([
-            'title'       => $request->title,
-            'slug'        => make_slug($request->slug, '-'),
-            'file'        => $request->file,
+            'title' => $request->title,
+            'slug' => make_slug($request->slug, '-'),
+            'link' => $request->file,
             'description' => $request->description,
-            'status'      => $request->status
+            'status' => $request->status
         ]);
 
         $book->tags()->sync($request->tag_id);
         $book->authors()->sync($request->author_id);
         $book->categories()->sync($request->category_id);
 
-        if ($request->hasFile('pic')) {
-            if (File::exists($this->picPath . $book->pic) && $book->pic != 'girl.jpg') {
-                File::delete($this->picPath . $book->pic);
+        if ($request->file('cover')->isValid()) {
+
+            if (File::exists($book->cover)) {
+                File::delete($book->cover);
             }
-            $picName = $this->upload->uploadImage($request, 'pic', $this->picPath, 600, 800);
-            $book->update(['pic' => $picName]);
+
+            $validated['cover'] = $request->photo->store('books');
+            $book->update(['cover' => $validated['cover']]);
         }
+
         return back()->with([
-            'url'     => 'books.index',
-            'type'    => 'success',
+            'url'    => 'books.index',
+            'type'   => 'success',
             'message' => 'تم تعديل الكتاب بنجاح '
         ]);
     }
@@ -184,12 +188,12 @@ class BookController extends Controller
         $book->authors()->detach();
         $book->categories()->detach();
 
-        if (File::exists($this->picPath . $book->pic) && $book->pic != 'girl.jpg') {
-            File::delete($this->picPath . $book->pic);
+        if (File::exists($book->cover)) {
+            File::delete($book->cover);
         }
 
         return back()->with([
-            'type'    => 'success',
+            'type'   => 'success',
             'message' => 'تم حذف الكتاب بنجاح '
         ]);
     }

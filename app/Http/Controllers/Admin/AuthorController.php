@@ -38,8 +38,6 @@ class AuthorController extends Controller
                 return ($author->status == 1) ? 'نشط' : 'غير نشط';
             })
             ->toJson();
-
-        return response()->json(['authors' => Author::with('user')->get()], 200);
     }
 
     /**

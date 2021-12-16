@@ -1,7 +1,7 @@
 {
     "/front/js/app.js": "/front/js/app.js",
-    "/backend/js/app.js": "/backend/js/app.js",
     "/js/app.js": "/js/app.js",
+    "/backend/js/app.js": "/backend/js/app.js",
     "/front/css/app.css": "/front/css/app.css",
     "/backend/css/admin.css": "/backend/css/admin.css",
     "/css/app.css": "/css/app.css",

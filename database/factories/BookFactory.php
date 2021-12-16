@@ -25,11 +25,11 @@ class BookFactory extends Factory
             'title'       => $this->faker->words(4, true),
             'slug'        => make_slug($this->faker->words(4, true), '-'),
             'description' => $this->faker->text(600),
-            'pic'         => null,
-            'file'        => '1iTNlgqlY4xJXKQrbjRhJ9XuT6_ZdUApR',
-            'status'      => 1,
+            'cover'         => null,
+            'link'        => '1iTNlgqlY4xJXKQrbjRhJ9XuT6_ZdUApR',
+            'status'      => true,
             'downloaded'  => 0,
-            'author_id'     => $this->faker->numberBetween(1, 20)
+            'user_id'     => 1
         ];
     }
 }

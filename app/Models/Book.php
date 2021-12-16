@@ -65,8 +65,8 @@ class Book extends Model
         })->whereStatus(1)->latest('updated_at')->take($take)->get();
     }
 
-    public function getPicAttribute()
+    public function getCoverAttribute()
     {
-        return $this->attributes['pic'] ? url("{$this->attributes['pic']}") : url('images/girl.jpg');
+        return $this->attributes['cover'] ? url("{$this->attributes['cover']}") : url('images/girl.jpg');
     }
 }

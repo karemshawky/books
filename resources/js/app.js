@@ -21,8 +21,10 @@ window.Vue = require('vue').default;
  */
 
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
 require('./components/front/FirstSlider.js');
+require('./components/backend/Books/CreateBook.js');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))

@@ -15,8 +15,8 @@ class CreateBookTagTable extends Migration
     {
         Schema::create('book_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->index()->constrained('books')->onDelete(null);
-            $table->foreignId('tag_id')->index()->constrained('tags')->onDelete(null);
+            $table->foreignId('book_id')->index()->constrained('books');
+            $table->foreignId('tag_id')->index()->constrained('tags');
         });
     }
 
