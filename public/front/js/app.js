@@ -2134,11 +2134,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*************************************************************!*\
   !*** ./resources/js/components/backend/Books/CreateBook.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ (() => {
 
-var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
-    axios = _require["default"];
-
+// const { default: axios } = require('axios');
 Vue.component('create-book', {
   props: ['categories', 'tags', 'authors'],
   data: function data() {

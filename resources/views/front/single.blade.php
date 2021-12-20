@@ -7,12 +7,12 @@
     <div class="container">
         <div class="row">
             <!-- Sidebar -->
-            <aside class="col-md-3 col-sm-4">
+            <div class="col-md-3 col-sm-4">
                 <div class="novel-img">
                     <div class="media-list">
                         <div class="media">
                             <div class="media-body">
-                                <img src="{{ url($book->pic ) }}" class="media-pic read-pic">
+                                <img src="{{ $book->cover }}" class="media-pic read-pic">
                             </div>
                         </div>
                         <div class="media">
@@ -25,8 +25,8 @@
                         </div>
                     </div>
                 </div>
-            </aside>
-            <aside class="col-md-9 col-sm-8">
+            </div>
+            <div class="col-md-9 col-sm-8">
                 <div class="novel-single">
                     <div class="ps-header">
                         <h2 class="novel-title space30"> {{ $book->title }} </h2>
@@ -75,8 +75,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
                         <div class="product-item">
                             <div class="item-thumb">
-                                <img src="{{ url($related->pic ) }}" class="media-pic" width="200"
-                                    height="200">
+                                <img src="{{ url($related->cover) }}" class="media-pic" width="200" height="200">
                             </div>
                             <div class="product-info">
                                 <h3 class="product-title"><a href="{{ route('books.slug',$related->slug) }}"> {{
@@ -92,7 +91,7 @@
                     <div class="fb-comments" data-href="{{ url()->current() }}" data-numposts="5" data-mobile="true"
                         data-width="100%"></div>
                 </div>
-            </aside>
+            </div>
         </div>
     </div>
     <div class="space20"></div>

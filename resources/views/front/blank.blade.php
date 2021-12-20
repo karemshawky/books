@@ -192,8 +192,8 @@
 
     </div>
     <!-- Js -->
-    <script src="{{ mix('front/js/app.js') }}"></script>
     <script src="{{ mix('front/js/front.js') }}"></script>
+    {{-- <script src="{{ mix('front/js/app.js') }}"></script> --}}
 
     @stack('js')
 

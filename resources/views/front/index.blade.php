@@ -8,7 +8,7 @@
         {{-- <first-slider :slider="{{ $data['firstSlider'] }}" inline-template>
             <div>
                 <div class="tpc-content" v-for="slider in sliders" :key="slider.id">
-                    <img :src="slider.pic" class="img-responsive" :alt="slider.title" />
+                    <img :src="slider.cover" class="img-responsive" :alt="slider.title" />
                     <div class="tpc-overlay">
                         <div class="tpc-overlay-inner">
                             <div class="tpc-info">
@@ -22,7 +22,7 @@
         </first-slider> --}}
 
         @foreach ($data['firstSlider'] as $first)
-        <div class="tpc-content"> <img src="{{ asset($first->pic) }}" class="img-responsive" alt="{{ $first->name }}" />
+        <div class="tpc-content"> <img src="{{ asset($first->cover) }}" class="img-responsive" alt="{{ $first->name }}" />
             <div class="tpc-overlay">
                 <div class="tpc-overlay-inner">
                     <div class="tpc-info">
@@ -48,7 +48,7 @@
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                 <div class="product-item">
                     <div class="item-thumb">
-                        <img width="150" height="200" src="{{ asset($arabic->pic) }}" class="img-responsive"
+                        <img width="150" height="200" src="{{ asset($arabic->cover) }}" class="img-responsive"
                             alt="{{ $arabic->title }}" />
                     </div>
                     <div class="product-info">
@@ -77,7 +77,7 @@
                     <div class="pc-wrap col-md-3 col-sm-3 col-xs-3">
                         <div class="product-item">
                             <div class="item-thumb">
-                                <img width="263" height="350" src="{{ asset($history->pic) }}" class="img-responsive"
+                                <img width="263" height="350" src="{{ asset($history->cover) }}" class="img-responsive"
                                     alt="{{ $history->title }}" />
                             </div>
                             <div class="product-info">
@@ -98,7 +98,7 @@
                     <div class="pc-wrap col-md-3 col-sm-3 col-xs-3">
                         <div class="product-item">
                             <div class="item-thumb">
-                                <img width="263" height="350" src="{{ asset($human->pic) }}" class="img-responsive"
+                                <img width="263" height="350" src="{{ asset($human->cover) }}" class="img-responsive"
                                     alt="{{ $human->title }}" />
                             </div>
                             <div class="product-info">
@@ -127,7 +127,7 @@
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                 <div class="product-item">
                     <div class="item-thumb">
-                        <img width="150" height="200" src="{{ asset($translated->pic) }}" class="img-responsive"
+                        <img width="150" height="200" src="{{ asset($translated->cover) }}" class="img-responsive"
                             alt="{{ $translated->title }}" />
                     </div>
                     <div class="product-info">

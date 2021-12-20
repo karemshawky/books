@@ -50,7 +50,7 @@ class HomeController extends Controller
         $relatedBooks = Category::findOrFail($category->id)->books->take(4)->except($book->id);
         $metaDescription = removeStripTagsAndDecode($book->description);
 
-        $this->seoSinglePage($book, $metaDescription, $category);
+        // $this->seoSinglePage($book, $metaDescription, $category);
 
         return view('front.single', compact('book', 'relatedBooks'));
     }
